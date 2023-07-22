@@ -1,3 +1,4 @@
+from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
@@ -11,8 +12,11 @@ class Board(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     description =  db.Column(db.String(500), nullable=False)
     title =  db.Column(db.String(255), nullable=False)
-    
-    pin = db.relationship("Pin", secondary=add_prefix_for_prod("board_pins", back_populates= "boards"))
+    board_image_url=db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    pin = db.relationship("Pin", secondary=add_prefix_for_prod("pins_boards"), back_populates= "board")
     user = db.relationship("User", back_populates="board")
     
     
@@ -22,6 +26,8 @@ class Board(db.Model):
             'user_id':self.user_id,
             'description': self.description,
             'title': self.title,
-            'pins': [pin.to_dict() for pin in self.pin]
+            'pins': [pin.to_dict() for pin in self.pin],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
             
         }

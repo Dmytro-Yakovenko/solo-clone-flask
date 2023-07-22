@@ -1,3 +1,4 @@
+from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
@@ -13,12 +14,14 @@ class Pin(db.Model):
     ingredients = db.Column(db.String(255), nullable=False)
     time =  db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-    
+    image_url = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     user=db.relationship("User", back_populates="pin")
-    board = db.relationship("Board", secondary=add_prefix_for_prod("board_pins", back_populates="pin"))
+    board = db.relationship("Board", secondary=add_prefix_for_prod('pins_boards'), back_populates="pin")
     comment = db.relationship("Comment", back_populates="pin", cascade="all , delete-orphan")
-    image = db.relationship("Image", back_populates="pin",cascade="all , delete-orphan" )
+   
     
     
     def to_dict(self):
@@ -30,5 +33,7 @@ class Pin(db.Model):
             'time': self.time,
             "user_id":self.user_id,
             "comments": [comment.to_dict() for comment in self.comment],
-            "images": [image.to_dict() for image in self.image]
+            "images": self.image_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
