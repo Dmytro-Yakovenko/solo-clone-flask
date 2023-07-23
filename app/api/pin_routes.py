@@ -8,7 +8,7 @@ pin_routes = Blueprint('pins', __name__)
 
 
 @pin_routes.route('/')
-@login_required
+# @login_required
 
 def get_all_pins():
     """
