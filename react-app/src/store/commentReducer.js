@@ -57,8 +57,8 @@ export const getCommentById = (id) => async (dispatch) => {
 };
 
 
-export const createComment = (comment)=>async(dispatch)=>{
-    const response = await fetch("api/comments",{
+export const createComment = (comment, id)=>async(dispatch)=>{
+    const response = await fetch(`/api/pins/${id}/comments`,{
         method:"POST", 
         headers:{
             "Content-Type": "application/json",
@@ -90,8 +90,8 @@ export  const editComment=(comment)=> async (dispatch)=>{
 }
 
 
-export const deleteComment = (id)=> async(dispatch)=>{
-    const response = await fetch(`/api/comments/${id}`,{
+export const deleteComment = (comment_id, pin_id)=> async(dispatch)=>{
+    const response = await fetch(`/api/pins/${pin_id}/comments/${comment_id}`,{
         method:"DELETE",
         headers:{
             "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export const deleteComment = (id)=> async(dispatch)=>{
     })
 
     if(response.ok){
-        dispatch(removeComment)
+        dispatch(removeComment())
         return null
     }else if(response.status<500){
         const data = await response.json();

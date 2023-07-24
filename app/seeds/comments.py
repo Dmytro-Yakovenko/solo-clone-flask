@@ -279,7 +279,7 @@ def seed_comments():
     comment118_60_1 = Comment(
         comment="This recipe is perfect for a special occasion or celebration.", user_id=1, pin_id=60)
     comment119_60_1 = Comment(
-        comment="I'm so grateful for this recipe. It's a lifesaver on busy days.", user_id=2, pin_id=60)
+        comment="I'm so grateful for this recipe. It's a lifesaver on busy days.", user_id=1, pin_id=60)
     comment120_60_1 = Comment(
         comment="This recipe is like a taste of my favorite restaurant at home.", user_id=1, pin_id=60)
    

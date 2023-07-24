@@ -28,30 +28,6 @@ def get_all_comments():
 
 
 
-@comment_routes.route('/<int:expense_id>', methods=["POST"])
-@login_required
-def create_comment(pin_id):
-    """
-    Creates a new comment
-    """
-    pin = Pin.query.get(pin_id)
-    # checks if pin exists
-    if not pin:
-        return {'errors': f"Pin {pin_id} does not exist"}, 400
-   
-
-    form = CommentForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        comment = Comment(
-            comment=form.data['comment'],
-            user_id=current_user.id,
-            pin_id=pin_id
-        )
-        db.session.add(comment)
-        db.session.commit()
-        return comment.to_dict(), 201
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @comment_routes.route('/<int:id>', methods=["PUT"])
@@ -76,19 +52,3 @@ def update_comment(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@comment_routes.route('/<int:id>', methods=["DELETE"])
-@login_required
-def delete_comment(id):
-    """
-    Deletes a comment
-    """
-    comment = Comment.query.get(id)
-    # checks if comment exists
-    if not comment:
-        return {'errors': f"Comment {id} does not exist."}, 400
-    # checks if current user is a creator of the comment
-    if comment.user_id != current_user.id:
-        return {'errors': f"User is not the creator of comment {id}."}, 401
-    db.session.delete(comment)
-    db.session.commit()
-    return {'message': 'Delete successful.'}
