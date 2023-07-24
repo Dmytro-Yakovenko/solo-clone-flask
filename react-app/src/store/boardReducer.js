@@ -52,7 +52,6 @@ export const getBoardById=(id)=>async(dispatch)=>{
 
     if(response.ok){
         const data =await response.json()
-        console.log(data,555555)
         dispatch(getOneBoard(data))
         return null
     }else if(response.status<500){
@@ -66,7 +65,7 @@ export const getBoardById=(id)=>async(dispatch)=>{
 }
 
 export const createBoard=(board)=>async(dispatch)=>{
-    const response = await fetch("api/boards", {
+    const response = await fetch("api/boards/", {
         method:"POST",
         headers:{
             "Content-Type": "application/json",
@@ -134,10 +133,11 @@ export default function boardsReducer(state= initialState, {type, payload}){
             const board = {}
            
             board[payload.id]=payload;
-            console.log(board,22222)
+           
             return {...state, board}
         case ADD_BOARD:
             const created ={...state};
+            
             created.boards[payload.id]=payload
             return created  
         case UPDATE_BOARD:

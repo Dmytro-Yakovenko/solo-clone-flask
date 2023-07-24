@@ -34,7 +34,7 @@ const removeComment = (id) => ({
 });
 
 export const getAllComments = () => async (dispatch) => {
-  const response = await fetch("api/comments");
+  const response = await fetch("/api/comments/");
   if (response.ok) {
     const data = await response.json();
     if (data.errors) {
@@ -45,7 +45,7 @@ export const getAllComments = () => async (dispatch) => {
 };
 
 export const getCommentById = (id) => async (dispatch) => {
-  const response = await fetch("/api/comments");
+  const response = await fetch(`/api/pins/${id}/comments`);
   if (response.ok) {
     const data = await response.json();
 
@@ -74,8 +74,8 @@ export const createComment = (comment)=>async(dispatch)=>{
 }
 
 
-export  const editComment=(comment, id)=> async (dispatch)=>{
-    const response = await fetch(`/api/comment/${id}`, {
+export  const editComment=(comment)=> async (dispatch)=>{
+    const response = await fetch(`/api/pins/${comment.pin_id}/comments/${comment.id}`, {
         method:"PUT",
         headers:{
             "Content-Type": "application/json",
@@ -112,20 +112,22 @@ export const deleteComment = (id)=> async(dispatch)=>{
 }
 
 
-const initialState ={comments:{}, comment:{}};
+const initialState ={comments:{}, comment_for_pin:{}};
 
 export default function commentReducer(state = initialState, {type, payload}){
     switch(type){
         case GET_COMMENTS:
             const comments= payload.comments.reduce((acc,curr)=>{
                 acc[curr.id]= curr
-                return curr
+                return acc
             },{})
             return{...state, comments}
         case GET_ONE_COMMENT:
-            const comment ={}
-            comment[comment.id]=payload
-            return {...state, comment}
+            const comment = payload.comments.reduce((acc,curr)=>{
+                acc[curr.id]= curr
+                return acc
+            },{})
+            return {...state, comment_for_pin:comment}
         case ADD_COMMENT:
             const created ={...state};
             created.comments[payload.id]=payload

@@ -7,18 +7,25 @@ from app.api.auth_routes import validation_errors_to_error_messages
 comment_routes = Blueprint('comments', __name__)
 
 
-@comment_routes.route('/<int:pin_id>')
+@comment_routes.route('/')
 @login_required
-def get_comments(pin_id):
+
+def get_all_comments():
     """
-    Query for all comments of a specific pin and returns them in a list of comment dictionaries
+    Query for all boards of  and returns them in a list of board dictionaries
     """
-    pin = Pin.query.get(pin_id)
-    # checks if pin exists
-    if not pin:
-        return {'errors': f"Pin {pin_id} does not exist"}, 400
-    comments = Comment.query.filter(Comment.pin_id == pin_id).all()
-    return {'comments': [comment.to_dict() for comment in comments]}
+    
+    comments = Comment.query.all()
+    comment_list=[]
+    for comment in comments:
+        comment_dict=comment.to_dict()
+        comment_list.append(comment_dict)
+    return jsonify({"comments":comment_list})
+
+
+
+
+
 
 
 @comment_routes.route('/<int:expense_id>', methods=["POST"])

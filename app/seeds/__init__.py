@@ -27,7 +27,6 @@ def seed():
         undo_comments()
     seed_users()
     seed_boards()
-    print(seed_pins)
     seed_pins()
     seed_comments()
     seed_pins_boards()
