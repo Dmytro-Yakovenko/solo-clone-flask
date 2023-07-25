@@ -11,7 +11,7 @@ class Pin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title =  db.Column(db.String(255), nullable=False)
     description =  db.Column(db.String(1500), nullable=False)
-    ingredients = db.Column(db.String(500), nullable=False)
+    ingredients = db.Column(db.String(1500), nullable=False)
     time =  db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     image_url = db.Column(db.String(255), nullable=False)
