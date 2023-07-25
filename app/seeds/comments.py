@@ -134,22 +134,18 @@ def seed_comments():
     comment58_30_6 = Comment(
         comment="I made this recipe for a potluck, and everyone asked for the recipe.", user_id=6, pin_id=30)
     comment59_30_6 = Comment(
-        comment="The secret ingredient in this recipe really takes it to the next level."
-, user_id=6, pin_id=30)
+        comment="The secret ingredient in this recipe really takes it to the next level.", user_id=6, pin_id=30)
     comment60_31_5 = Comment(
         comment="I can't believe I made something this delicious from scratch.", user_id=5, pin_id=31)
     comment61_31_5 = Comment(
-        comment="This recipe is perfect for special occasions and celebrations."
-, user_id=5, pin_id=31)
+        comment="This recipe is perfect for special occasions and celebrations.", user_id=5, pin_id=31)
     comment62_32_5 = Comment(
         comment="I'm already planning to share this recipe with all my friends."
 , user_id=5, pin_id=32)
     comment63_32_5 = Comment(
-        comment="I'm so grateful for this recipe. It's become a family tradition."
-, user_id=5, pin_id=32)
+        comment="I'm so grateful for this recipe. It's become a family tradition.", user_id=5, pin_id=32)
     comment64_33_5 = Comment(
-        comment="This recipe is like a taste of heaven. I can't get enough!"
-, user_id=5, pin_id=33)
+        comment="This recipe is like a taste of heaven. I can't get enough!", user_id=5, pin_id=33)
     comment65_33_5 = Comment(
         comment="I'm going to make this recipe for my next dinner party. It's a showstopper."
 , user_id=5, pin_id=33)
@@ -292,6 +288,7 @@ def seed_comments():
         comment1_1_10,
         comment2_1_10, 
         comment3_2_10,
+        comment4_2_10,
         comment5_3_10, 
         comment6_3_10,
         comment7_4_10,
