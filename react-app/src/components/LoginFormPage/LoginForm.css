@@ -1,0 +1,60 @@
+.login-form-container {
+    /* background-image: url("facets.png"); */
+    background-repeat: repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+   
+    
+   
+}
+
+.login-form {
+    background: white;
+    width: 400px;
+    height: 400px;
+    padding: 20px 50px;
+    border-radius: 5%;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 2px 2px 5px gray;
+   
+}
+
+.form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.form-logo {
+    height: 40px;
+    width: 40px;
+
+}
+
+.form-logo-wrapper {
+   display: flex;
+   justify-content: center;
+}
+.btn {
+    padding: 10px;
+    
+    border: none;
+    border-radius: 10px;
+}
+.primary {
+    background-color:rgb(163, 62, 77);
+    color: #fff;
+
+}
+
+.secondary {
+   background-color:  rgb(238, 236, 115);
+}
