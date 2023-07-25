@@ -7,7 +7,7 @@ Create Date: 2023-07-24 19:28:47.258040
 """
 from alembic import op
 import sqlalchemy as sa
-
+from app.models import db, User, environment, SCHEMA
 
 # revision identifiers, used by Alembic.
 revision = '39d60707bdd4'
@@ -32,6 +32,9 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+   
     op.create_table('boards',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -43,6 +46,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
+   
     op.create_table('pins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
@@ -56,6 +62,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
+   
+    
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('comment', sa.String(length=255), nullable=False),
@@ -67,6 +77,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+   
+    
     op.create_table('pins_boards',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('pin_id', sa.Integer(), nullable=False),
@@ -77,6 +91,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE pins_boards SET SCHEMA {SCHEMA};")
+ 
+    
     # ### end Alembic commands ###
 
 
