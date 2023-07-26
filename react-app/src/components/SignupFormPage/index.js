@@ -22,7 +22,7 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      const data = await dispatch(signUp(username, email, firstName, lastName, userImage, password));
+      const data = await dispatch(signUp(username, email, password, firstName, lastName, userImage));
       if (data) {
         setErrors(data);
       }

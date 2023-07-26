@@ -7,10 +7,11 @@ p, ul, div, li, a, img h1, h2, h3, h4, section {
 }
 
 .profile-dropdown {
-  position: fixed;
+  position: absolute;
   background-color: #fff;
   top: 50px;
-  right: 5px;
+  /* right: 5px; */
+  left: 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -28,7 +29,7 @@ p, ul, div, li, a, img h1, h2, h3, h4, section {
 }
 
 .header {
-  height: 50px;
+  height: 80px;
   width: 100%;
   box-sizing: border-box;
   position: fixed;
@@ -46,13 +47,14 @@ p, ul, div, li, a, img h1, h2, h3, h4, section {
 }
 
 .header img {
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
 }
 
 .nav-btn img {
-  height: 23px;
-  width: 23px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
 }
 
@@ -100,6 +102,9 @@ p, ul, div, li, a, img h1, h2, h3, h4, section {
 .navigation-link {
   font-size: 15px;
   padding: 7px 9px;
+}
+.navigation-link:hover {
+  background-color: rgb(205, 202, 197);
 }
 
 .nav-btn {
