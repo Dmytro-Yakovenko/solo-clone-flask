@@ -47,27 +47,33 @@ function LoginFormPage() {
                 ))}
               </ul>
             )}
-            <label>Email address</label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="input-wrapper">
+              <label>Email address</label>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-wrapper" >
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
             <button className=" btn primary" type="submit">
               Log in
             </button>
-            <button className="btn secondary"
-
+            <button
+              className="btn secondary"
               onClick={(e) => {
                 setEmail("demo@aa.io");
                 setPassword("password");
