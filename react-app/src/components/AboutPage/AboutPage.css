@@ -1,0 +1,15 @@
+.images {
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.about-page {
+    padding-top: 100px;
+}
+
+.about-page-title {
+    font-size: 50px;
+    font-weight: 700px;
+    margin-bottom: 100px;
+    color: rgb(163, 62, 77);
+}
