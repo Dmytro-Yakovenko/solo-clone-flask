@@ -21,15 +21,15 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin3 = Pin(
-        title='Cheeseburger',
+        title='Tacos',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
-        ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
+        ingredients='Meat /n 1 1/2 lbs Skirt steak /n Produce /n  1/2 cup Cilantro, fresh leaves /n  3 cloves Garlic /n  1 Lime, wedges /n  1 tsp Oregano, dried /n  3/4 cup Red onion /n Condiments /n  2 tbsp Lime juice, freshly squeezed/n  2 tbsp Soy sauce, reduced sodium, /n Baking & Spices  /n  2 tsp Chili powder /n Oils & Vinegars /n  2 tbsp Canola oil /n Nuts & Seeds /n  1 tsp Cumin, ground /n Bread & Baked Goods /n  12 Flour tortillas, mini',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690339010/2d6ecbf2dd8794cc4ed7d606c0919174_shkbq1.jpg"
     )
     pin4 = Pin(
-        title='Cheeseburger',
+        title='Burrito',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -37,7 +37,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin5 = Pin(
-        title='Cheeseburger',
+        title='Kung Pao Chicken',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -45,7 +45,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin6 = Pin(
-        title='Cheeseburger',
+        title='Peking Duck',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -53,7 +53,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin7 = Pin(
-        title='Cheeseburger',
+        title='Kimchi ',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -61,7 +61,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin8 = Pin(
-        title='Cheeseburger',
+        title='Bulgogi',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -69,7 +69,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin9 = Pin(
-        title='Cheeseburger',
+        title='Sushi',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
@@ -77,7 +77,7 @@ def seed_pins():
         image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
     )
     pin10 = Pin(
-        title='Cheeseburger',
+        title='Ramen',
         description="Preheat your grill, stovetop griddle, or frying pan over medium-high heat\n Divide the ground beef into 4 equal portions, shaping each portion into a ball.\nFlatten each ball into a patty about 3/4 to 1 inch thick. Make a slight depression in the center of each patty to prevent it from puffing up during cooking.\nSeason both sides of the patties with salt and pepper.\nCook the patties on the grill or stovetop for about 4-5 minutes on each side or until they reach your desired level of doneness. If you prefer well-done burgers, you can cook them a little longer.\nDuring the last minute of cooking, add a slice of cheese on top of each patty and let it melt.\nWhile the patties are cooking, lightly toast the hamburger buns on the grill or stovetop until they are warm and slightly crispy.\nAssemble the burgers by placing a cooked patty with melted cheese on the bottom half of each bun.\nAdd your preferred toppings, such as lettuce, tomato slices, onions, pickles, ketchup, mustard, or mayonnaise.\nPlace the top half of the bun on the toppings to complete the cheeseburger.",
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
