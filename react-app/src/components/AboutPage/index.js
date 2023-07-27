@@ -1,6 +1,5 @@
 import React from "react";
-import Navigation from "../Navigation";
-import "./AboutPage.css"
+import "./AboutPage.css";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 const images = [
   {
@@ -27,11 +26,6 @@ const images = [
     src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690382337/fe17801e424fdd4d53324a533aa505d7_a7ubbx.jpg",
     alt: "food6",
   },
-
-
-
-
-
 
   {
     src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690382333/01d9f84a2ac17fe69c5875d2624ecf4a_szarir.jpg",
@@ -93,22 +87,22 @@ const images = [
     src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016571/samples/food/pot-mussels.jpg",
     alt: "food21",
   },
-
-
-
 ];
 const AboutPage = () => {
   return (
     <>
-      <Navigation />
       <div className="container about-page">
-
-    <h1 className="about-page-title">Get your next dinner idea </h1>
+        <h1 className="about-page-title">Get your next dinner idea </h1>
 
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 4, 900: 7 }}>
           <Masonry columnsCount={7}>
             {images.map((item) => (
-              <img className="images" key={item.alt} src={item.src} alt={item.alt} />
+              <img
+                className="images"
+                key={item.alt}
+                src={item.src}
+                alt={item.alt}
+              />
             ))}
           </Masonry>
         </ResponsiveMasonry>

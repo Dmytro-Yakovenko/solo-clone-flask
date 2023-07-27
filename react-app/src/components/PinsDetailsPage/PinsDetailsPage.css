@@ -1,0 +1,59 @@
+
+.user-image-pins-details {
+    margin: 5px;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+
+.image-page-details {
+    max-width: 550px;
+}
+
+.user-pins-details-page {
+    margin: 30px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-pins-details-page {
+    font-size: 24px;
+    font-weight: 700px;
+    margin-bottom: 10px;
+}
+
+.pins-details-page-text {
+    font-size: 14px;
+    text-align: left;
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
+.pins-details-page-order-list {
+    list-style-type: space-counter;;
+}
+
+
+
+.pins-details-page {
+    padding-top: 100px;
+    display: flex;
+    gap:50px;
+
+}
+
+.pins-page-title {
+    font-size: 50px;
+    font-weight: 700px;
+    margin-bottom: 100px;
+    color: rgb(163, 62, 77);
+}
+
+.pins-page-link {
+    color: rgb(163, 62, 77);
+    max-width: 250px;
+    display: inline-block;
+    margin: 15px 5px;
+}
