@@ -1,0 +1,23 @@
+.pins-images {
+    max-width: 220px;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.pins-page {
+    padding-top: 100px;
+}
+
+.pins-page-title {
+    font-size: 50px;
+    font-weight: 700px;
+    margin-bottom: 100px;
+    color: rgb(163, 62, 77);
+}
+
+.pins-page-link {
+    color: rgb(163, 62, 77);
+    max-width: 250px;
+    display: inline-block;
+    margin: 15px 5px;
+}
