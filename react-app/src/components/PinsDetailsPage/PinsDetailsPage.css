@@ -1,4 +1,6 @@
-
+.main {
+    padding-bottom: 50px;
+}
 .user-image-pins-details {
     margin: 5px;
     border-radius: 50%;
@@ -8,6 +10,7 @@
 
 .image-page-details {
     max-width: 550px;
+    max-height: 750px;
 }
 
 .user-pins-details-page {
@@ -35,14 +38,68 @@
     list-style-type: space-counter;;
 }
 
+.pins-details-page-subtitle {
+    font-size: 18px;
+    font-weight: 700px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 
+.pins-details-comment-item {
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
 
 .pins-details-page {
     padding-top: 100px;
     display: flex;
     gap:50px;
-
 }
+
+.pins-details-form {
+    display: flex;
+    gap:20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.pins-details-emogi-btn {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 5px;
+    right: 15%;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+}
+
+.pins-details-emogi {
+    width: 25px;
+    height: 25px; 
+    background-color: rgb(238, 238, 14);
+    border-radius: 50%;
+}
+
+.pins-details-ingredients-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pins-details-primary{
+    background-color:rgb(163, 62, 77); 
+    padding: 5px;
+    color: #fff;
+    border: none;
+    height: 25px;
+    font-size: 13px;
+    max-width: 60px;
+    width: 100%;
+}
+
+
 
 .pins-page-title {
     font-size: 50px;

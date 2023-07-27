@@ -62,3 +62,11 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+textarea {
+	resize: none;
+  }
+ 
+a button {
+	cursor: pointer;
+}  
