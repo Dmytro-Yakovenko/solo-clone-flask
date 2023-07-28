@@ -126,9 +126,8 @@ export default function pinsReducer(state = initialState, { type, payload }) {
       }, {});
       return { ...state, pins };
     case GET_ONE_PIN:
-      const pin = {};
-      pin[payload.id] = payload;
-      return { ...state, pin };
+    
+      return { ...state, pin:payload };
     case ADD_PIN:
       const created = { ...state };
       created.pins[payload.id] = payload;

@@ -1,9 +1,8 @@
 /* TODO Add site wide styles */
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:wght@400;500;700;900&display=swap');
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -57,8 +56,17 @@ ul {
 }
 body {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;;
 }
 .container {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+textarea {
+	resize: none;
+  }
+ 
+a button {
+	cursor: pointer;
+}  

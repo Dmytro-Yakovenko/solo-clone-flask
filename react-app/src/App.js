@@ -35,7 +35,7 @@ function App() {
   <Route path="/signup">
     <SignupFormPage />
   </Route>
-  <Route path="/pins">
+  <Route exact path="/pins">
     <PinsPage />
   </Route>
   <Route path="/boards">
@@ -57,7 +57,7 @@ function App() {
     {/* <FriendPage /> */}
   </Route>
   <Route path="/pins/:id">
-    {/* <FriendPage /> */}
+    <PinsDetailsPage />
   </Route>
 </Switch>
 </>

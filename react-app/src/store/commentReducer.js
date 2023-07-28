@@ -1,5 +1,7 @@
 //constants
 
+import { getPinById } from "./pinReducer";
+
 const GET_COMMENTS = "comment/GET_COMMENTS";
 const ADD_COMMENT = "comment/ADD_COMMENT";
 const UPDATE_COMMENT = "comments/UPDATE_COMMENT";
@@ -69,6 +71,7 @@ export const createComment = (comment, id)=>async(dispatch)=>{
     if(response.ok){
         const data = await response.json()
         dispatch(addComment(data))
+        dispatch(getPinById(id))
         
     }
 }
