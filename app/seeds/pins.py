@@ -26,7 +26,7 @@ def seed_pins():
         ingredients='Meat /n 1 1/2 lbs Skirt steak /n Produce /n  1/2 cup Cilantro, fresh leaves /n  3 cloves Garlic /n  1 Lime, wedges /n  1 tsp Oregano, dried /n  3/4 cup Red onion /n Condiments /n  2 tbsp Lime juice, freshly squeezed/n  2 tbsp Soy sauce, reduced sodium, /n Baking & Spices  /n  2 tsp Chili powder /n Oils & Vinegars /n  2 tbsp Canola oil /n Nuts & Seeds /n  1 tsp Cumin, ground /n Bread & Baked Goods /n  12 Flour tortillas, mini',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690339010/2d6ecbf2dd8794cc4ed7d606c0919174_shkbq1.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690513127/854208a4b053bd13f651c919a198b251_qf95yh.jpg"
     )
     pin4 = Pin(
         title='Burrito',
@@ -34,7 +34,7 @@ def seed_pins():
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690513313/a00406d2ca909de27457a9f416d463e0_ku5e8r.jpg"
     )
     pin5 = Pin(
         title='Kung Pao Chicken',
@@ -42,7 +42,7 @@ def seed_pins():
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690513417/6353477103d26a73315e157b508bb248_yu2lpz.jpg"
     )
     pin6 = Pin(
         title='Peking Duck',
@@ -50,7 +50,7 @@ def seed_pins():
         ingredients='1 lb (450g) ground beef (80% lean is a good choice for juiciness)\nSalt and pepper to taste\n4 hamburger buns/n4 slices of cheese (American, cheddar, or your preferred type)\nOptional toppings: lettuce, tomato slices, onion slices, pickles, ketchup, mustard, mayonnaise, etc.',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690513542/ef24648a867b29d00736e53940fa3a03_v9bkxn.jpg"
     )
     pin7 = Pin(
         title='Kimchi ',
