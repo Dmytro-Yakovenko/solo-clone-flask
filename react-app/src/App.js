@@ -38,7 +38,7 @@ function App() {
   <Route exact path="/pins">
     <PinsPage />
   </Route>
-  <Route path="/boards">
+  <Route exact path="/boards">
     <BoardsPage />
   </Route>
   <Route path="/boards/:id/edit">
@@ -50,7 +50,7 @@ function App() {
   <Route path="/pins/create">
     {/* <FriendPage /> */}
   </Route>
-  <Route path="/pins/:id/edit">
+  <Route  path="/pins/:id/edit">
     {/* <FriendPage /> */}
   </Route>
   <Route path="/boards/:id">
