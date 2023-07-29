@@ -13,10 +13,10 @@
 .pins-create-page-form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     border: 1px solid #000;
     border-radius: 20px;
-    padding: 100px;
+    padding: 50px 100px;
     max-width: 400px;
     width: 100%;
     
@@ -25,6 +25,10 @@
 .pins-create-page-form input {
     padding: 10px 5px;
     border-radius: 20px;
+    width: 100%;
+    max-height: 300px;
+    margin-top: 5px;
+    display: inline-block;
 
 }
 
@@ -41,5 +45,21 @@
     padding: 10px 5px;
     border: none;
     border-radius: 10px;
+    width: 103%;
+}
+
+.pins-create-page-form label {
+    padding-bottom: 30px;
+    position: relative;
+    
+}
+
+.pins-create-page-form span {
+    color: rgb(241, 6, 53);
+    position: absolute;
+    font-size: 12px;
+    left: 0;
+    bottom: 0;
+
 }
 

@@ -12,7 +12,7 @@ const PinsDetailsPage = () => {
   const user = useSelector((state) => state.session.user);
   const [comment, setComment] = useState("");
   const [isIngredientsShow, setIngredientsShow] = useState(true);
-  const [isCommentsShow, setCommentsShow] = useState(false);
+  const [isCommentsShow, setCommentsShow] = useState(true);
   useEffect(() => {
     dispatch(getPinById(id));
   }, [dispatch, id]);

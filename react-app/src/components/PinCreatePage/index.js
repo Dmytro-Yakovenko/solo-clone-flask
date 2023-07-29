@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/";
 import { createPin } from "../../store/pinReducer";
 import { boardConfig } from "./boardConfig";
 
@@ -14,6 +15,9 @@ const PinCreatePage = () => {
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
   const [ errors, setErrors ] = useState({});
+
+  const history = useHistory()
+  
   useEffect(() => {
     const errors = {};
     if (title.length > 255) {
@@ -51,7 +55,7 @@ const PinCreatePage = () => {
       )
     );
     
-
+history.push("/pins")
     setTitle("");
     setDescription("");
     setIngredients("");
@@ -74,7 +78,7 @@ const PinCreatePage = () => {
               </option>
             ))}
           </select>
-          <label>Tell everyone what are you going to cook</label>
+          <label>Tell everyone what are you going to cook
           <input 
           value={title} 
           onChange={(e)=>setTitle(e.target.value)}
@@ -82,36 +86,39 @@ const PinCreatePage = () => {
           placeholder="Add title"
             />
           {errors.title && <span>{errors.title}</span>}
-
-          <label>Tell everyone how you will cook</label>
+          </label>
+          <label>Tell everyone how you will cook
           <textarea 
           required  
           value={description} 
           onChange={(e)=>setDescription(e.target.value)}
           rows="5"
-          cols="50"
+          cols="44"
           placeholder="Add description"
           />
           {errors.description && <span>{errors.description}</span>}
-
-          <label>Ingredients</label>
+          </label>
+          <label>Ingredients
           <textarea
            required  
            value={ingredients} 
            onChange={(e)=>setIngredients(e.target.value)}
            rows="5"
-           cols="50"
+           cols="44"
            placeholder="Add ingredients"
+           
            />
           {errors.ingredients && <span>{errors.ingredients}</span>}
-          <label>Time</label>
+          </label>
+          <label>Time
 
           <input required value={time} onChange={(e)=>setTime(e.target.value)}/>
           {errors.time && <span>{errors.time}</span>}
-          <label>Image_url</label>
+          </label>
+          <label>Image_url
           <input required  value={image_url} onChange={(e)=>setImage_url(e.target.value)}/>
           {errors.image_url && <span>{errors.image_url}</span>}
-          
+          </label>
           <button 
           type="submit"
           disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
