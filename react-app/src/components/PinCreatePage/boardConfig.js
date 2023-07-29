@@ -1,0 +1,33 @@
+export const boardConfig=[
+    {
+        id:1,kitchen:"American"
+    },
+    {
+        id:2,kitchen:"Mexican"
+    },
+    {
+        id:3,kitchen:"Chinese"
+    },
+    {
+        id:4,kitchen:"Japanese"
+    },
+    {
+        id:5,kitchen:"Korean"
+    },
+    {
+        id:6,kitchen:"French"
+    },
+    {
+        id:7,kitchen:"Italian"
+    },
+    {
+        id:8,kitchen:"Ukrainian"
+    },
+    {
+        id:9,kitchen:"Mediterranean"
+    },
+    {
+        id:10,kitchen:"Vegetarian"
+    },
+
+]
