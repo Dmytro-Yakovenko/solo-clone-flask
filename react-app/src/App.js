@@ -11,6 +11,7 @@ import { TiPlus } from "react-icons/ti";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PinCreate from "./components/PinCreatePage";
+import PinEditPage from "./components/PinEditPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,10 +47,11 @@ function App() {
             <Route path="/boards">
               <BoardsPage />
             </Route>
+
             <Route path="/boards/:id/edit">{/* <EditFriendPage /> */}</Route>
             <Route path="/boards/create">{/* <FriendPage /> */}</Route>
             <Route path="/pins/create">{<PinCreate/>}</Route>
-            <Route path="/pins/:id/edit">{/* <FriendPage /> */}</Route>
+            <Route path="/pins/:id/edit">{ <PinEditPage /> }</Route>
             <Route path="/boards/:id">{/* <FriendPage /> */}</Route>
             <Route path="/pins/:id">
               <PinsDetailsPage />
