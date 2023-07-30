@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getPinById } from "../../store/pinReducer";
+import { useParams, useHistory } from "react-router-dom";
+import { deletePin, getPinById } from "../../store/pinReducer";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import { createComment } from "../../store/commentReducer";
 import "./PinsDetailsPage.css";
 const PinsDetailsPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory()
   const pin = useSelector((state) => state.pins.pin);
   const user = useSelector((state) => state.session.user);
   const [comment, setComment] = useState("");
   const [isIngredientsShow, setIngredientsShow] = useState(true);
-  const [isCommentsShow, setCommentsShow] = useState(false);
+  const [isCommentsShow, setCommentsShow] = useState(true);
   useEffect(() => {
     dispatch(getPinById(id));
   }, [dispatch, id]);
@@ -63,8 +64,18 @@ const PinsDetailsPage = () => {
               <p>
                 {pin?.user?.first_name} {pin?.user?.last_name}
               </p>
-              <button>Update</button>
-              <button>Delete</button>
+              <button className="pins-details-update">
+                Update Pin
+                </button>
+              <button 
+              onClick={()=>{
+                dispatch(deletePin(id))
+                history.push("/pins")
+
+              }}
+              className="pins-details-delete">
+                Delete Pin
+                </button>
             </div>
             <div className="pins-details-ingredients-wrapper">
               <h6 className="pins-details-page-subtitle">Ingredients</h6>
