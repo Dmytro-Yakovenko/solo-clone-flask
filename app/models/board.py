@@ -27,7 +27,9 @@ class Board(db.Model):
             'description': self.description,
             'title': self.title,
             'pins': [pin.to_dict() for pin in self.pin],
+            'board_image_url':self.board_image_url,
             'created_at': self.created_at,
             'updated_at': self.updated_at
+            
             
         }

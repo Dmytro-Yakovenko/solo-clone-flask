@@ -12,6 +12,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PinCreate from "./components/PinCreatePage";
 import PinEditPage from "./components/PinEditPage";
+import BoardCreatePage from "./components/BoardCreatePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,10 +28,16 @@ function App() {
         <>
           <Navigation />
           {user && (
-            <Link to="/pins/create" className="btn_fix">
-              <TiPlus className="plus-icon" />
+            <Link to="/pins/create" className="btn_fix btn_fix_right">
+              <TiPlus className="plus-icon plus-icon_right" />
             </Link>
           )}
+            {user && (
+            <Link to="/boards/create" className="btn_fix btn_fix_left">
+              <TiPlus className="plus-icon plus-icon_left" />
+            </Link>
+          )}
+
           <Switch>
             <Route exact path="/">
               <AboutPage />
@@ -49,10 +56,10 @@ function App() {
             </Route>
 
             <Route path="/boards/:id/edit">{/* <EditFriendPage /> */}</Route>
-            <Route path="/boards/create">{/* <FriendPage /> */}</Route>
-            <Route path="/pins/create">{<PinCreate/>}</Route>
-            <Route path="/pins/:id/edit">{ <PinEditPage /> }</Route>
-            <Route path="/boards/:id">{/* <FriendPage /> */}</Route>
+            <Route path="/boards/create"><BoardCreatePage/></Route>
+            <Route path="/pins/create">{<PinCreate />}</Route>
+            <Route path="/pins/:id/edit">{<PinEditPage />}</Route>
+            <Route path="/boards/:id"></Route>
             <Route path="/pins/:id">
               <PinsDetailsPage />
             </Route>
