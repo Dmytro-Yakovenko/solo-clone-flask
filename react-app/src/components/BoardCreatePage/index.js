@@ -11,50 +11,52 @@ const BoardCreatePage = () => {
   const [kitchen, setKitchen] = useState(1);
   const [title, setTitle] = useState(boardConfig[0].kitchen);
   const [description, setDescription] = useState(boardConfig[0].description);
-  const [boardImageUrl, setBoardImageUrl] = useState(boardConfig[0].board_image_url);
-  const history = useHistory()
-  
-  
+  const [boardImageUrl, setBoardImageUrl] = useState(
+    boardConfig[0].board_image_url
+  );
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
       createBoard(
         {
-            title,
-            description,
-            board_image_url:boardImageUrl,
-            user_id:user.id,
+          title,
+          description,
+          board_image_url: boardImageUrl,
+          user_id: user.id,
         },
-        kitchen
-
+  
       )
     );
-    
-history.push("/boards")
- 
+
+    history.push("/boards");
   };
 
   return (
     <main className="main">
       <div className="container pins-create-page">
-        <form 
-        className="pins-create-page-form"
-        onSubmit={handleSubmit}>
-          <select value={kitchen} onChange={(e) => setKitchen(e.target.value)}>
+        <form className="pins-create-page-form" onSubmit={handleSubmit}>
+          <select
+            value={kitchen}
+            onChange={(e) => {
+              setKitchen(e.target.value);
+              setTitle(boardConfig[e.target.value-1].kitchen)
+              setBoardImageUrl(boardConfig[e.target.value-1].board_image_url)
+              setDescription(boardConfig[e.target.value-1].description)
+            }}
+          >
             {boardConfig.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.kitchen}
               </option>
             ))}
           </select>
-          
-          <button 
-          type="submit"
-        //   disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
-          >
-            Create Board
-            </button>
+          <img 
+          className="board-create-page-image"
+          src={boardImageUrl} alt={title} />
+          <p>{description}</p>
+          <button type="submit">Create Board</button>
         </form>
       </div>
     </main>

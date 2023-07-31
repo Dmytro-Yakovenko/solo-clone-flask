@@ -11,7 +11,7 @@ class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     description =  db.Column(db.String(1500), nullable=False)
-    title =  db.Column(db.String(255), nullable=False)
+    title =  db.Column(db.String(255), nullable=False, unique=True)
     board_image_url=db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)

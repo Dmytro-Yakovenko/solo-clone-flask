@@ -71,7 +71,7 @@ a button {
 	cursor: pointer;
 }  
 
-.btn_fix {
+.btn-fix {
     position: fixed;
 	top:50%;
     bottom: 15%;
@@ -84,13 +84,13 @@ a button {
     
   }
 
-  .btn_fix_left {
+  .btn-fix-left {
     left: 5px;
     background-color: rgb(238, 236, 115);
       
   }
 
-  .btn_fix_right {
+  .btn-fix-right {
     right: 5px;
     background-color: rgb(163, 62, 77);
   }
@@ -108,10 +108,31 @@ a button {
     bottom: 0;
   }
 
-  .plus-icon_right {
+  .plus-icon-right {
 	color:#fff;
   }
 
-  .plus-icon_left {
+  .plus-icon-left {
 	color: #000;;
   }
+
+  .btn-fix-span {
+    font-size: 24px;
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 150px;
+    height: 55px;
+    padding: 5px;
+    bottom: 70px;
+  }
+
+  .btn-fix-span-right {
+    right: 0;
+  }
+

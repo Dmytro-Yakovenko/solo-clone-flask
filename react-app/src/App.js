@@ -17,6 +17,8 @@ import BoardCreatePage from "./components/BoardCreatePage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isShowPopUpBoard,setIsShowPopUpBoard ]= useState(false)
+  const [isShowPopUpPin,setIsShowPopUpPin ]= useState(false)
   const user = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -28,13 +30,26 @@ function App() {
         <>
           <Navigation />
           {user && (
-            <Link to="/pins/create" className="btn_fix btn_fix_right">
-              <TiPlus className="plus-icon plus-icon_right" />
+          
+            <Link 
+            onMouseOver={()=>setIsShowPopUpPin(true)} 
+            onMouseLeave={()=>setIsShowPopUpPin(false)} 
+            to="/pins/create" className="btn-fix btn-fix-right">
+              <TiPlus className="plus-icon plus-icon-right" />
+              {
+                isShowPopUpPin && <span className="btn-fix-span btn-fix-span-right">Create Pin</span>
+              }
             </Link>
           )}
             {user && (
-            <Link to="/boards/create" className="btn_fix btn_fix_left">
-              <TiPlus className="plus-icon plus-icon_left" />
+            <Link 
+             onMouseOver={()=>setIsShowPopUpBoard(true)}
+             onMouseLeave={()=>setIsShowPopUpBoard(false)}
+             to="/boards/create" className="btn-fix btn-fix-left">
+              <TiPlus className="plus-icon plus-icon-left" />
+              {
+                isShowPopUpBoard && <span  className="btn-fix-span">Create Board</span>
+              }
             </Link>
           )}
 
@@ -51,7 +66,7 @@ function App() {
             <Route exact path="/pins">
               <PinsPage />
             </Route>
-            <Route path="/boards">
+            <Route exact path="/boards">
               <BoardsPage />
             </Route>
 
