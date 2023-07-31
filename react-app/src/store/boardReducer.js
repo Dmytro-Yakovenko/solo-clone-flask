@@ -65,7 +65,7 @@ export const getBoardById=(id)=>async(dispatch)=>{
 }
 
 export const createBoard=(board)=>async(dispatch)=>{
-    const response = await fetch("api/boards/", {
+    const response = await fetch("/api/boards/", {
         method:"POST",
         headers:{
             "Content-Type": "application/json",

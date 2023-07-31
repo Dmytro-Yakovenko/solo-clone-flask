@@ -12,10 +12,13 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PinCreate from "./components/PinCreatePage";
 import PinEditPage from "./components/PinEditPage";
+import BoardCreatePage from "./components/BoardCreatePage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isShowPopUpBoard,setIsShowPopUpBoard ]= useState(false)
+  const [isShowPopUpPin,setIsShowPopUpPin ]= useState(false)
   const user = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -27,10 +30,29 @@ function App() {
         <>
           <Navigation />
           {user && (
-            <Link to="/pins/create" className="btn_fix">
-              <TiPlus className="plus-icon" />
+          
+            <Link 
+            onMouseOver={()=>setIsShowPopUpPin(true)} 
+            onMouseLeave={()=>setIsShowPopUpPin(false)} 
+            to="/pins/create" className="btn-fix btn-fix-right">
+              <TiPlus className="plus-icon plus-icon-right" />
+              {
+                isShowPopUpPin && <span className="btn-fix-span btn-fix-span-right">Create Pin</span>
+              }
             </Link>
           )}
+            {user && (
+            <Link 
+             onMouseOver={()=>setIsShowPopUpBoard(true)}
+             onMouseLeave={()=>setIsShowPopUpBoard(false)}
+             to="/boards/create" className="btn-fix btn-fix-left">
+              <TiPlus className="plus-icon plus-icon-left" />
+              {
+                isShowPopUpBoard && <span  className="btn-fix-span">Create Board</span>
+              }
+            </Link>
+          )}
+
           <Switch>
             <Route exact path="/">
               <AboutPage />
@@ -44,15 +66,15 @@ function App() {
             <Route exact path="/pins">
               <PinsPage />
             </Route>
-            <Route path="/boards">
+            <Route exact path="/boards">
               <BoardsPage />
             </Route>
 
             <Route path="/boards/:id/edit">{/* <EditFriendPage /> */}</Route>
-            <Route path="/boards/create">{/* <FriendPage /> */}</Route>
-            <Route path="/pins/create">{<PinCreate/>}</Route>
-            <Route path="/pins/:id/edit">{ <PinEditPage /> }</Route>
-            <Route path="/boards/:id">{/* <FriendPage /> */}</Route>
+            <Route path="/boards/create"><BoardCreatePage/></Route>
+            <Route path="/pins/create">{<PinCreate />}</Route>
+            <Route path="/pins/:id/edit">{<PinEditPage />}</Route>
+            <Route path="/boards/:id"></Route>
             <Route path="/pins/:id">
               <PinsDetailsPage />
             </Route>
