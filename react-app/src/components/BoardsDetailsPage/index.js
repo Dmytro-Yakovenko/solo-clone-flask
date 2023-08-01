@@ -1,55 +1,101 @@
-import React, {useEffect} from 'react'
-import "./BoardDetailsPage.css"
-import { useDispatch, useSelector } from 'react-redux'
-import { getBoardById } from '../../store/boardReducer'
-import { useParams, Link } from 'react-router-dom'
-
+import React, { useEffect, useState } from "react";
+import "./BoardDetailsPage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getBoardById } from "../../store/boardReducer";
+import { useParams, Link } from "react-router-dom";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { LuEdit } from 'react-icons/lu';
 const BoardDetailsPage = () => {
-const dispatch = useDispatch()
-const {id}= useParams()
-const board = useSelector(state=>state.boards.board)
-const user = useSelector(state=>state.session.user)
-console.log(user,33333)
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const board = useSelector((state) => state.boards.board);
+  const user = useSelector((state) => state.session.user);
+  const colImages=board?.pins?.length<5?board?.pins?.length:5
 
-useEffect(()=>{
-    dispatch(getBoardById(id))
-},[dispatch, id])
+  const [shadow, setShadow]= useState(false)
+
+    console.log(board.pins)
+  useEffect(() => {
+    dispatch(getBoardById(id));
+  }, [dispatch, id]);
 
   return (
-    <main className='main'>
-        <div className='container'>
-            <h2>{board.title}</h2>
-            <img src={board.board_image_url} alt={board.title}/>
-            <section >
-                <img src={user.user_image} alt={user.username}/>
-                <h3>{user.first_name} {user.last_name}</h3>
-                <p>{user.email}</p>
-                <button>
-                    Edit Profile
-                </button>
+    <main className="main">
+      <div className="container">
+        <section className="board-details-page-profile">
+          <img
+            className="board-details-page-image"
+            src={user.user_image}
+            alt={user.username}
+          />
+          <h3>
+            {user.first_name} {user.last_name}
+          </h3>
+          <p>{user.email}</p>
+          <div className="board-details-page-btn-wrapper">
+          <button 
+          className="board-detail-btn board-detail-btn-edit"
+          >Edit Profile</button>
 
-                <button>
-                    Delete Profile
-                </button>
+          <button
+          className="board-detail-btn board-detail-btn-delete"
+          >Delete Profile
+          </button>
+          
+          </div>
+         
+        </section>
 
-            </section>
-            <section>
-                <ul>
-                   {board?.pins.map(item=>(
-                    <li>
-                        <Link to={`/pins/${item.id}`}>
-                        <img src={item.images} alt={item.title}/>
-                        </Link>
-                        
-                    </li>
-                   ))} 
-                </ul>
+        <div className="board-details-wrapper">
+          <h2>{board.title}</h2>
+          <div className="board-details-shadow"
+          onMouseOver={()=>setShadow(true)}
+          onMouseLeave={()=>setShadow(false)}
+          >
+
+          <img
             
-            </section>
+            className="board-details-page-board"
+            src={board.board_image_url}
+            alt={board.title}
+          />
+          {shadow && <div className="wrapper">
+            <button className="board-details-page-delete-btn">
+            <RiDeleteBin6Line className="icon"/>
+            </button>
+           <Link to={`/boards/${id}/edit`}>
+           <LuEdit className="icon"/>
+           </Link>
+            
+          </div>}
+
+          </div>
+        
         </div>
+<h4 className="board-details-page-subtitle">Your dinner ideas</h4>
 
+        <section className="board-details-page-section">
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 700: 2, 900: 3, 1000: colImages }}
+          >
+            <Masonry columnsCount={5}>
+              {board?.pins?.map((item) => (
+                <Link className="boards-page-link" to={`/pins/${item.id}`}>
+                  <img
+                    className="boards-image"
+                    src={item.images}
+                    alt={item.title}
+                  />
+                  <h4>{item.title}</h4>
+                </Link>
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        </section>
+      </div>
     </main>
-  )
-}
+  );
+};
 
-export default BoardDetailsPage
+export default BoardDetailsPage;

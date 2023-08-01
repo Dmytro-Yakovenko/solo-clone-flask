@@ -368,7 +368,7 @@ def seed_pins():
         ingredients=' Couscous. Water or broth. Olive oil or butter. Salt. Optional: chopped vegetables, herbs, or spices for added flavor.',
         time="35 minutes",
         user_id=8,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1689907009/a6169d71aec018196a5590da4ad2b167_ck2bbs.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690656034/f940c5e8489a82f49f32492de819cd47_hrpfiw.jpg"
     )
     pin46 = Pin(
         title='Veggie Burger',

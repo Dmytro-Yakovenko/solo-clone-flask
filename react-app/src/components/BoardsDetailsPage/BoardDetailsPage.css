@@ -1,0 +1,133 @@
+.main {
+    margin-top: 100px;
+}
+.board-details-page-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+  
+  .nav-btn img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+
+.board-details-page-board {
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+
+.boards-image {
+    max-width: 220px;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.boards-page-link {
+    color: rgb(163, 62, 77);
+    max-width: 250px;
+    display: inline-block;
+    margin: 15px 5px;
+}
+
+.board-details-wrapper{
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.board-details-shadow {
+    position: relative;
+}
+  
+.board-details-wrapper h2 {
+    font-size:  24px;
+    font-weight: 700px;
+    color: rgb(163, 62, 77);
+}
+
+.board-detail-btn {
+    height: 33px;
+    border: none;
+    margin: 0;
+    font-size: 16px;
+   
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+   
+    
+}
+
+.board-detail-btn-edit {
+    background-color: rgb(163, 62, 77);
+    color: #fff;
+    padding: 10px 15px;
+  }
+
+.board-detail-btn-delete {
+    background-color: rgb(238, 236, 115); 
+    color: #000;
+    padding: 10px;
+  }
+
+  .board-details-page-btn-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .board-details-page-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .board-details-page-subtitle {
+    color: rgb(163, 62, 77);
+    font-size: 20px;
+    font-weight: 700px;
+    font-style: italic;
+  }
+  
+  .board-details-page-delete-btn {
+    border: none;
+    /* background-color: rgba(255,255,255,0.5); */
+    background-color: none;
+  }
+  
+
+  .wrapper {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+.icon {
+    color: rgb(163, 62, 77);
+    font-size: 40px;
+    
+}
+  
+
+
+ 
