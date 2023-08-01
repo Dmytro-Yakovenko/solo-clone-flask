@@ -14,6 +14,7 @@ import PinCreate from "./components/PinCreatePage";
 import PinEditPage from "./components/PinEditPage";
 import BoardCreatePage from "./components/BoardCreatePage";
 import BoardEditPage from "./components/BoardEditPage";
+import BoardDetailsPage from "./components/BoardsDetailsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,7 +89,9 @@ function App() {
             <Route path="/pins/:id/edit">
               <PinEditPage />
             </Route>
-            <Route path="/boards/:id"></Route>
+            <Route path="/boards/:id">
+              <BoardDetailsPage/>
+            </Route>
             <Route path="/pins/:id">
               <PinsDetailsPage />
             </Route>
