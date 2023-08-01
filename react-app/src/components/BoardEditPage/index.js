@@ -10,18 +10,23 @@ const BoardEditPage = () => {
   const {id}=useParams();
   const board = useSelector((state)=>state.boards.board)
   const user = useSelector((state) => state.session.user);
+  const findedIndex=boardConfig.findIndex(item=>item.kitchen===board.title)+1
   const [kitchen, setKitchen] = useState(1);
-  const [title, setTitle] = useState(board.kitchen);
-  const [description, setDescription] = useState(board.description);
-  const [boardImageUrl, setBoardImageUrl] = useState(
-    board.board_image_url
-  );
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [boardImageUrl, setBoardImageUrl] = useState('');
   const history = useHistory();
 
 useEffect(()=>{
     dispatch(getBoardById(id))
 },[dispatch, id])
 
+useEffect(()=>{
+  setKitchen(findedIndex)
+  setTitle(board.title)
+  setDescription(board.description)
+  setBoardImageUrl(board.board_image_url)
+},[findedIndex,board])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,8 +47,8 @@ useEffect(()=>{
 
   return (
     <main className="main">
-      <div className="container pins-edit-page">
-        <form className="pins-edit-page-form" onSubmit={handleSubmit}>
+      <div className="container board-edit-page">
+        <form className="board-edit-page-form" onSubmit={handleSubmit}>
           <select
             value={kitchen}
             onChange={(e) => {

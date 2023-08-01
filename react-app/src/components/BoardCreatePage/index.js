@@ -35,8 +35,8 @@ const BoardCreatePage = () => {
 
   return (
     <main className="main">
-      <div className="container pins-create-page">
-        <form className="pins-create-page-form" onSubmit={handleSubmit}>
+      <div className="container board-create-page">
+        <form className="board-create-page-form" onSubmit={handleSubmit}>
           <select
             value={kitchen}
             onChange={(e) => {
@@ -56,7 +56,9 @@ const BoardCreatePage = () => {
           className="board-create-page-image"
           src={boardImageUrl} alt={title} />
           <p>{description}</p>
-          <button type="submit">Create Board</button>
+          <button
+          
+          type="submit">Create Board</button>
         </form>
       </div>
     </main>

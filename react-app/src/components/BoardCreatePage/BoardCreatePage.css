@@ -1,4 +1,44 @@
+
 .board-create-page-image {
-    max-height: 250px;
+    height: 250px;
 
 }
+
+
+.main {
+    padding-bottom: 50px;
+}
+
+.board-create-page {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:calc(100vh - 100px);
+}
+
+.board-create-page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 50px 100px;
+    max-width: 400px;
+    width: 100%;
+    
+}
+
+
+
+.board-create-page-form button{
+    background-color: rgb(163, 62, 77);
+    color: #fff;
+    padding: 10px 5px;
+    border: none;
+    border-radius: 10px;
+    width: 103%;
+}
+
+
+
