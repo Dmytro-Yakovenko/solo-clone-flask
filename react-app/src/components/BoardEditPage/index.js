@@ -1,32 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/";
-import { createBoard } from "../../store/boardReducer";
+import { useHistory, useParams } from "react-router-dom/";
+import { editBoard, getBoardById } from "../../store/boardReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
-import "./BoardCreatePage.css";
-const BoardCreatePage = () => {
+import "./BoardEditPage.css";
+const BoardEditPage = () => {
   const dispatch = useDispatch();
+  const {id}=useParams();
+  const board = useSelector((state)=>state.boards.board)
   const user = useSelector((state) => state.session.user);
+  const findedIndex=boardConfig.findIndex(item=>item.kitchen===board.title)+1
   const [kitchen, setKitchen] = useState(1);
-  const [title, setTitle] = useState(boardConfig[0].kitchen);
-  const [description, setDescription] = useState(boardConfig[0].description);
-  const [boardImageUrl, setBoardImageUrl] = useState(
-    boardConfig[0].board_image_url
-  );
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [boardImageUrl, setBoardImageUrl] = useState('');
   const history = useHistory();
+
+useEffect(()=>{
+    dispatch(getBoardById(id))
+},[dispatch, id])
+
+useEffect(()=>{
+  setKitchen(findedIndex)
+  setTitle(board.title)
+  setDescription(board.description)
+  setBoardImageUrl(board.board_image_url)
+},[findedIndex,board])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      createBoard(
+      editBoard(
         {
           title,
           description,
           board_image_url: boardImageUrl,
           user_id: user.id,
         },
-  
+  id
       )
     );
 
@@ -35,8 +47,8 @@ const BoardCreatePage = () => {
 
   return (
     <main className="main">
-      <div className="container board-create-page">
-        <form className="board-create-page-form" onSubmit={handleSubmit}>
+      <div className="container board-edit-page">
+        <form className="board-edit-page-form" onSubmit={handleSubmit}>
           <select
             value={kitchen}
             onChange={(e) => {
@@ -53,16 +65,14 @@ const BoardCreatePage = () => {
             ))}
           </select>
           <img 
-          className="board-create-page-image"
+          className="board-edit-page-image"
           src={boardImageUrl} alt={title} />
           <p>{description}</p>
-          <button
-          
-          type="submit">Create Board</button>
+          <button type="submit">Edit Board</button>
         </form>
       </div>
     </main>
   );
 };
 
-export default BoardCreatePage;
+export default BoardEditPage;

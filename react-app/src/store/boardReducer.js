@@ -130,11 +130,8 @@ export default function boardsReducer(state= initialState, {type, payload}){
             },{});
             return {...state, boards}
         case GET_ONE_BOARD:
-            const board = {}
-           
-            board[payload.id]=payload;
-           
-            return {...state, board}
+         
+            return {...state, board:payload}
         case ADD_BOARD:
             const created ={...state};
             

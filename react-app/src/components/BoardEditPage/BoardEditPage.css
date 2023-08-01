@@ -1,5 +1,4 @@
-
-.board-create-page-image {
+.board-edit-page-image {
     height: 250px;
 
 }
@@ -9,7 +8,7 @@
     padding-bottom: 50px;
 }
 
-.board-create-page {
+.board-edit-page {
     padding-top: 100px;
     display: flex;
     justify-content: center;
@@ -17,7 +16,7 @@
     height:calc(100vh - 100px);
 }
 
-.board-create-page-form {
+.board-edit-page-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -31,7 +30,7 @@
 
 
 
-.board-create-page-form button{
+.board-edit-page-form button{
     background-color: rgb(163, 62, 77);
     color: #fff;
     padding: 10px 5px;
