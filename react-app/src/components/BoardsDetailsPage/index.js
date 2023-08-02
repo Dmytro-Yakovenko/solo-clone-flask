@@ -6,6 +6,8 @@ import { useParams, Link } from "react-router-dom";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { LuEdit } from 'react-icons/lu';
+import DeleteProfileModal from "../DeleteProfileModal";
+import OpenModalButton from "../OpenModalButton";
 const BoardDetailsPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -38,10 +40,15 @@ const BoardDetailsPage = () => {
           className="board-detail-btn board-detail-btn-edit"
           >Edit Profile</button>
 
-          <button
+          {/* <button
           className="board-detail-btn board-detail-btn-delete"
           >Delete Profile
-          </button>
+          </button> */}
+                          <OpenModalButton
+                    modalComponent={<DeleteProfileModal />}
+                    buttonText="Delete Profile"
+                    className="board-detail-btn board-detail-btn-delete"
+                />
           
           </div>
          
