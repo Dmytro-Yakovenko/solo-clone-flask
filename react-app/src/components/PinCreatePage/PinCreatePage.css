@@ -1,0 +1,64 @@
+.main {
+    padding-bottom: 50px;
+}
+
+.pins-create-page {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:calc(100vh - 100px);
+}
+
+.pins-create-page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 50px 100px;
+    max-width: 400px;
+    width: 100%;
+    
+}
+
+.pins-create-page-form input {
+    padding: 10px 5px;
+    border-radius: 20px;
+    width: 100%;
+    max-height: 300px;
+    margin-top: 5px;
+    display: inline-block;
+
+}
+
+.pins-create-page-form textarea {
+    padding: 10px 5px;
+    border-radius: 20px;
+    padding: 20px;
+
+}
+
+.pins-create-page-form button{
+    background-color: rgb(163, 62, 77);
+    color: #fff;
+    padding: 10px 5px;
+    border: none;
+    border-radius: 10px;
+    width: 103%;
+}
+
+.pins-create-page-form label {
+    padding-bottom: 30px;
+    position: relative;
+    
+}
+
+.pins-create-page-form span {
+    color: rgb(241, 6, 53);
+    position: absolute;
+    font-size: 12px;
+    left: 0;
+    bottom: 0;
+
+}

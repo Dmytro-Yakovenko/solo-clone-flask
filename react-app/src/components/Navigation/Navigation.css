@@ -157,10 +157,10 @@ a {
   border-radius: 0;
 }
 
-.log-out:hover .log-out {
+/* .log-out:hover .log-out {
   background-color: rgb(163, 62, 77);
   color: #fff;
-}
+} */
 
 .log-out:hover {
   background-color:rgb(163, 62, 77);

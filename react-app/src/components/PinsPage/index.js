@@ -9,7 +9,7 @@ const PinsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPins());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

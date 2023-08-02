@@ -61,7 +61,7 @@ def create_board():
     """
     Creates a new board
     """
-   
+  
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

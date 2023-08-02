@@ -121,3 +121,38 @@
     display: inline-block;
     margin: 15px 5px;
 }
+
+.pins-details-delete :hover {
+    background-color: rgb(163, 62, 77);
+    color: #fff;
+}
+
+.pins-details-delete {
+    
+    border: 1px solid #000;
+    border-radius: 4px;
+    height: 33px;
+    margin: 0;
+    padding: 5px;
+    background: rgb(238, 236, 115);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+
+.pins-details-update {
+    height: 33px;
+    border: none;
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(163, 62, 77);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #fff;
+
+}
