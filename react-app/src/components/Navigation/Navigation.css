@@ -166,3 +166,19 @@ a {
   background-color:rgb(163, 62, 77);
   color: #fff;
 }
+
+.nav-profile-btn {
+  border-radius: 50%;
+  border: none;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(238, 236, 115); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 30px;
+  height: 30px;
+}

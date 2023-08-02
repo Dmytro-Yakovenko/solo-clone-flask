@@ -1,6 +1,8 @@
 import React from "react";
 import "./AboutPage.css";
+import { Redirect } from "react-router-dom";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { useSelector } from "react-redux";
 const images = [
   {
     src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690382353/a6169d71aec018196a5590da4ad2b167_mzlqhc.jpg",
@@ -89,6 +91,11 @@ const images = [
   },
 ];
 const AboutPage = () => {
+  const user = useSelector(state=>state.session.user)
+  if(user){
+    return <Redirect to="/pins"/>
+  } 
+  console.log(user, 44444444)
   return (
     <>
       <div className="container about-page">

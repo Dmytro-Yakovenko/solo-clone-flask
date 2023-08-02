@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { NavLink, useHistory } from "react-router-dom/";
-
+import { NavLink, useHistory, Link } from "react-router-dom/";
+import { TfiArrowCircleDown } from 'react-icons/tfi';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -36,9 +36,17 @@ function ProfileButton({ user }) {
       <ul className="navigation-menu" ref={ulRef}>
         {user ? (
           <>
-            <button className="nav-btn" onClick={openMenu}>
+            <Link to ="/boards" className="nav-btn" >
               <img src={user.user_image} alt={user.username} />
               <span>{user.username}</span>
+            </Link>
+            <button
+            onClick={openMenu}
+            className="nav-profile-btn"
+            >
+              <TfiArrowCircleDown
+              className="nav-icon"
+              />
             </button>
             <ul className={ulClassName}>
               <li> Hello, </li>
