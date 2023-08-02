@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import { deletePin, getPinById } from "../../store/pinReducer";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { createPin, getPinById } from "../../store/pinReducer";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import { createComment } from "../../store/commentReducer";
+import DeletePinModal from "../DeletePinModal";
+import OpenModalButton from "../OpenModalButton";
 import "./PinsDetailsPage.css";
 const PinsDetailsPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const history = useHistory()
   const pin = useSelector((state) => state.pins.pin);
   const user = useSelector((state) => state.session.user);
   const [comment, setComment] = useState("");
@@ -36,7 +37,6 @@ const PinsDetailsPage = () => {
   return (
     <main className="main">
       <div className="container ">
-       
         <div className="pins-details-page">
           <img
             className="image-page-details"
@@ -64,18 +64,50 @@ const PinsDetailsPage = () => {
               <p>
                 {pin?.user?.first_name} {pin?.user?.last_name}
               </p>
-              <button className="pins-details-update">
-                Update Pin
-                </button>
-              <button 
-              onClick={()=>{
-                dispatch(deletePin(id))
-                history.push("/pins")
+              {pin?.user_id === user.id && (
+                <>
+                  <Link to={`/pins/${id}/edit`} className="pins-details-update">
+                    Update Pin
+                  </Link>
+                  {/* <button
+                    onClick={() => {
+                      dispatch(deletePin(id));
+                      history.push("/pins");
+                    }}
+                    className="pins-details-delete"
+                  >
+                    Delete Pin
+                  </button> */}
+                   <OpenModalButton
+                  modalComponent={<DeletePinModal id={id} />}
+                  buttonText="Delete Pin"
+                  className="pins-details-delete"
+                />
+                </>
+              )}
 
-              }}
-              className="pins-details-delete">
-                Delete Pin
+              {pin?.user_id !== user.id && (
+                <button
+                  className="pins-details-update"
+                  onClick={() =>
+                    dispatch(
+                      createPin({
+                        title: pin.title,
+                        description: pin.description,
+                        time: pin.time,
+                        ingredients: pin.ingredients,
+                        user_id: user.id,
+                        image_url: pin.images,
+                       
+                      }, 1)
+                    )
+                  }
+
+                  // onClick ={handleClick}
+                >
+                  Save
                 </button>
+              )}
             </div>
             <div className="pins-details-ingredients-wrapper">
               <h6 className="pins-details-page-subtitle">Ingredients</h6>

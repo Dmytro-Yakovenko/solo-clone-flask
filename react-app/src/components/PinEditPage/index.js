@@ -1,38 +1,47 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/";
-import { createPin } from "../../store/pinReducer";
+import { useHistory, useParams } from "react-router-dom/";
+import { editPin, getPinById } from "../../store/pinReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
-import "./PinCreatePage.css";
-const PinCreatePage = () => {
+
+import "./PinEditPage.css";
+const PinEditPage = () => {
+  const {id}=useParams()
   const dispatch = useDispatch();
+  const pin = useSelector((state)=>state.pins.pin)
   const user = useSelector((state) => state.session.user);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [time, setTime] = useState("");
-  const [image_url, setImage_url] = useState("");
+  const [title, setTitle] = useState(pin.title);
+  const [description, setDescription] = useState(pin.description);
+  const [ingredients, setIngredients] = useState(pin.ingredients);
+  const [time, setTime] = useState(pin.time);
+  const [image_url, setImage_url] = useState(pin.images);
   const [kitchen, setKitchen] = useState(1);
   const [ errors, setErrors ] = useState({});
-
+  console.log(id)
   const history = useHistory()
   
+  useEffect(()=>{
+    dispatch(getPinById(id))
+  },[dispatch, id])
+
+
   useEffect(() => {
     const errors = {};
-    if (title.length > 255) {
+    if (title?.length > 255) {
       errors.title = "title should be shorter than 255 characters";
     }
-    if (description.length > 1500) {
+    if (description?.length > 1500) {
       errors.description = "title should be shorter than 1500 characters";
     }
-    if (ingredients.length > 1500) {
+    if (ingredients?.length > 1500) {
       errors.description = "ingredients should be shorter than 1500 characters";
     }
     if (time.length > 10) {
       errors.time = "ingredients should be shorter than 10 characters";
     }
-    if (image_url.length > 255) {
+    if (image_url?.length > 255) {
       errors.image_url = "ingredients should be shorter than 10 characters";
     }
     setErrors(errors);
@@ -41,7 +50,7 @@ const PinCreatePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      createPin(
+      editPin(
         {
             title,
             description,
@@ -67,9 +76,9 @@ history.push("/pins")
 
   return (
     <main className="main">
-      <div className="container pins-create-page">
+      <div className="container pins-edit-page">
         <form 
-        className="pins-create-page-form"
+        className="pins-edit-page-form"
         onSubmit={handleSubmit}>
           <select value={kitchen} onChange={(e) => setKitchen(e.target.value)}>
             {boardConfig.map((item) => (
@@ -123,7 +132,7 @@ history.push("/pins")
           type="submit"
           disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
           >
-            Create Pin
+            Edit Pin
             </button>
         </form>
       </div>
@@ -131,4 +140,4 @@ history.push("/pins")
   );
 };
 
-export default PinCreatePage;
+export default PinEditPage;
