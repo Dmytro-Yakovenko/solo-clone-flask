@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./BoardDetailsPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoardById } from "../../store/boardReducer";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Redirect} from "react-router-dom";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LuEdit } from "react-icons/lu";
@@ -22,6 +22,9 @@ const BoardDetailsPage = () => {
   useEffect(() => {
     dispatch(getBoardById(id));
   }, [dispatch, id]);
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <main className="main">

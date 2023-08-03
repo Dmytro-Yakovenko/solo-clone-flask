@@ -3,13 +3,21 @@ import "./PinsPage.css";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPins } from "../../store/pinReducer";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect} from "react-router-dom";
+
+
+
 const PinsPage = () => {
+  const user = useSelector(state=>state.session.user)
+ 
   const pins = useSelector((state) => Object.values(state.pins.pins));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPins());
-  }, []);
+  }, [dispatch]);
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <>

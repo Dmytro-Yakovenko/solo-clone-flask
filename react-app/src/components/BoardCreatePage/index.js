@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/";
+import { useHistory, Redirect } from "react-router-dom/";
 import { createBoard } from "../../store/boardReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
@@ -32,7 +32,9 @@ const BoardCreatePage = () => {
 
     history.push("/boards");
   };
-
+  if(!user){
+    return <Redirect to="/"/>
+  } 
   return (
     <main className="main">
       <div className="container board-create-page">

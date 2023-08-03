@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom/";
+import { useHistory, useParams, Redirect } from "react-router-dom/";
 import { editBoard, getBoardById } from "../../store/boardReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
@@ -44,6 +44,9 @@ useEffect(()=>{
 
     history.push("/boards");
   };
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <main className="main">
