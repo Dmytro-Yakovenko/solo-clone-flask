@@ -43,7 +43,7 @@ def get_board(id):
     board = Board.query.get(id)
     # checks if pin exists
     if not board:
-        return {'errors': f"Board {id} does not exist."}
+        return {'errors': f"Board {id} does not exist."}, 404
     # pins = Pin.query.filter(Pin.pin_id == id).all()
     # pin_ids = [pin for pin in pins]
     return board.to_dict()
@@ -88,7 +88,7 @@ def update_board(id):
    
     # checks if board exists
     if not board:
-        return {'errors': f"Board {id} does not exist."}, 400
+        return {'errors': f"Board {id} does not exist."}, 404
     # checks if current user is a creator of the board
     if board.user_id != current_user.id:
         return {'errors': f"User is not the creator of pin {id}."}, 401
@@ -136,7 +136,7 @@ def create_pin(board_id):
     board = Board.query.get(board_id)
     # checks if board exists
     if not board:
-        return {'errors': f"Board {board_id} does not exist"}, 400
+        return {'errors': f"Board {board_id} does not exist"}, 404
    
     form = PinForm()
     form['csrf_token'].data = request.cookies['csrf_token']

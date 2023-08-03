@@ -35,7 +35,7 @@ class Pin(db.Model):
             "comments": [comment.to_dict() for comment in self.comment],
             "images": self.image_url,
             "user": self.user.to_dict(),
-            # 'board': [board.to_dict() for board in self.board ],
+            # 'board': self.board.to_dict(),
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

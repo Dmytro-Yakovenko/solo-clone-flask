@@ -34,8 +34,8 @@ const removeBoard = (id)=>({
 })
 
 
-export const getAllBoards=()=>async (dispatch)=>{
-    const response = await fetch("api/boards/")
+export const getAllBoards=(id)=>async (dispatch)=>{
+    const response = await fetch(`/api/users/${id}/boards`)
     if(response.ok){
         const data = await response.json();
          
