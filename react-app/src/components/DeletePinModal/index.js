@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deletePin } from "../../store/pinReducer";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 // import "./DeleteProfileModal.css";
 
@@ -9,12 +9,16 @@ function DeletePinModal({id}) {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const history = useHistory()
+  const user = useSelector((state) => state.session.user);
   const handleDelete = async (e) => {
     e.preventDefault();
     dispatch(deletePin(id));
     history.push("/pins")
     closeModal();
   };
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <div className="modal-body">

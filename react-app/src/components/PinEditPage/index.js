@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom/";
+import { useHistory, useParams, Redirect } from "react-router-dom/";
 import { editPin, getPinById } from "../../store/pinReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
@@ -73,6 +73,10 @@ history.push("/pins")
     setKitchen(1);
     setErrors({})
   };
+
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <main className="main">
