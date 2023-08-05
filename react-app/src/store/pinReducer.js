@@ -141,7 +141,7 @@ export default function pinsReducer(state = initialState, { type, payload }) {
       
       const removedState = { ...state };
       delete removedState.pins[payload];
-      console.log(removedState, 5555555)
+      
       return removedState;
     default:
       return state;
