@@ -15,31 +15,44 @@ const PinCreatePage = () => {
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
   const [ errors, setErrors ] = useState({});
+  const [submitted, setSubmitted]=useState(false)
 
   const history = useHistory()
   
   useEffect(() => {
     const errors = {};
-    if (title.length > 255) {
-      errors.title = "title should be shorter than 255 characters";
+    if (title.length > 255  || title.length < 5) {
+      errors.title = "title should be shorter than 255 characters and longer than 5 characters";
     }
-    if (description.length > 1500) {
-      errors.description = "title should be shorter than 1500 characters";
+    if (description.length > 1500 || description.length < 10) {
+      errors.description = "description should be shorter than 1500 characters and longer than 10 characters ";
     }
-    if (ingredients.length > 1500) {
-      errors.description = "ingredients should be shorter than 1500 characters";
+    if (ingredients.length > 1500 || ingredients.length < 10) {
+      errors.ingredients = "ingredients should be shorter than 1500 characters and longer than 10 characters";
     }
-    if (time.length > 10) {
-      errors.time = "ingredients should be shorter than 10 characters";
+    if (time.length > 10 || time.length < 2  ) {
+      errors.time = "ingredients should be shorter than 10 characters and longer than 2 characters";
+      console.log("hello", 9999999999999)
     }
-    if (image_url.length > 255) {
-      errors.image_url = "ingredients should be shorter than 10 characters";
+    if (image_url.length > 255  || image_url.length < 10 ) {
+      errors.image_url = "image url should be longer than 10 characters and shorter than 255";
     }
+
+
+    if (!image_url.match(/(\.jpe?g$)|(\.png$)/g)) {
+      errors.image_url = "Image URL must end in .png, .jpg, or .jpeg";
+     
+    }
+  
     setErrors(errors);
-  }, [setErrors, title, description, ingredients, time, image_url]);
+  }, [setErrors, title, description, ingredients, time, image_url, submitted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(true)
+    if(errors.title || errors.description || errors.ingredients || errors.time || errors.image_url ){
+      return 
+    }
     dispatch(
       createPin(
         {
@@ -54,7 +67,7 @@ const PinCreatePage = () => {
 
       )
     );
-    
+setSubmitted(false)    
 history.push("/pins")
     setTitle("");
     setDescription("");
@@ -89,7 +102,7 @@ history.push("/pins")
           required
           placeholder="Add title"
             />
-          {errors.title && <span>{errors.title}</span>}
+          {errors.title && submitted&& <span>{errors.title}</span>}
           </label>
           <label>Tell everyone how you will cook
           <textarea 
@@ -100,7 +113,7 @@ history.push("/pins")
           cols="44"
           placeholder="Add description"
           />
-          {errors.description && <span>{errors.description}</span>}
+          {errors.description && submitted && <span>{errors.description}</span>}
           </label>
           <label>Ingredients
           <textarea
@@ -112,20 +125,20 @@ history.push("/pins")
            placeholder="Add ingredients"
            
            />
-          {errors.ingredients && <span>{errors.ingredients}</span>}
+          {errors.ingredients && submitted &&<span>{errors.ingredients}</span>}
           </label>
           <label>Time
 
           <input required value={time} onChange={(e)=>setTime(e.target.value)}/>
-          {errors.time && <span>{errors.time}</span>}
+          {errors.time && submitted && <span>{errors.time}</span>}
           </label>
           <label>Image_url
           <input required  value={image_url} onChange={(e)=>setImage_url(e.target.value)}/>
-          {errors.image_url && <span>{errors.image_url}</span>}
+          {errors.image_url && submitted && <span>{errors.image_url}</span>}
           </label>
           <button 
           type="submit"
-          disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
+          //disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
           >
             Create Pin
             </button>

@@ -155,6 +155,7 @@ a {
   text-align: left;
   display: inline-block;
   border-radius: 0;
+  cursor: pointer;
 }
 
 /* .log-out:hover .log-out {

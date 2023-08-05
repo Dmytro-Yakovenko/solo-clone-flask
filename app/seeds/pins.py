@@ -26,7 +26,7 @@ def seed_pins():
         ingredients=' 1 lb (450g) ground beef. 1 small onion (finely chopped). 2 cloves garlic (minced). 1 packet taco seasoning mix. 1/2 cup water. Salt and pepper to taste. Taco shells or soft tortillas. Shredded lettuce. Diced tomatoes. Shredded cheese. Sour cream (optional). Salsa (optional). Sliced jalapenos (optional).',
         time="45 minutes",
         user_id=1,
-        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690339010/2d6ecbf2dd8794cc4ed7d606c0919174_shkbq1.jpg"
+        image_url="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691254933/9434ad0f6de508d27e8f3cea42d51376_fcp8pv.jpg"
     )
     pin4 = Pin(
         title='Burrito',
