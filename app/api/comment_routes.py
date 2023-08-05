@@ -9,25 +9,16 @@ comment_routes = Blueprint('comments', __name__)
 
 @comment_routes.route('/')
 @login_required
-
 def get_all_comments():
     """
     Query for all boards of  and returns them in a list of board dictionaries
-    """
-    
+    """ 
     comments = Comment.query.all()
     comment_list=[]
     for comment in comments:
         comment_dict=comment.to_dict()
         comment_list.append(comment_dict)
     return jsonify({"comments":comment_list})
-
-
-
-
-
-
-
 
 
 @comment_routes.route('/<int:id>', methods=["PUT"])

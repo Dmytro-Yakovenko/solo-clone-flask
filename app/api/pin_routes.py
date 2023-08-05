@@ -8,13 +8,11 @@ pin_routes = Blueprint('pins', __name__)
 
 
 @pin_routes.route('/')
-# @login_required
-
+@login_required
 def get_all_pins():
     """
     Query for all pins of  and returns them in a list of pin dictionaries
     """
-    
     pins = Pin.query.all()
     pin_list=[]
     for pin in pins:
@@ -33,10 +31,7 @@ def get_pin(id):
     # checks if pin exists
     if not pin:
         return {'errors': f"Pin {id} does not exist."}
-    comments = Comment.query.filter(Comment.pin_id == id).all()
-    comments_ids = [comment for comment in comments]
     return pin.to_dict()
-
 
 
 @pin_routes.route('/<int:id>', methods=["PUT"])
@@ -61,8 +56,6 @@ def update_pin(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-
-
 @pin_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
 def delete_pin(id):
@@ -81,10 +74,6 @@ def delete_pin(id):
     return {'message': 'Delete successful.'}
 
 
-
-
-
-
 @pin_routes.route('/<int:pin_id>/comments')
 @login_required
 def get_comments(pin_id):
@@ -99,17 +88,16 @@ def get_comments(pin_id):
     return {'comments': [comment.to_dict() for comment in comments]}
 
 
-
 @pin_routes.route('/<int:pin_id>/comments/<int:comment_id>', methods=["PUT"])
 @login_required
 def update_comment(pin_id, comment_id):
+    """
+    Updates a comment
+    """
     pin = Pin.query.get(pin_id)
     # checks if pin exists
     if not pin:
         return {'errors': f"Pin {pin_id} does not exist."}, 400
-    """
-    Updates a comment
-    """
     comment = Comment.query.get(comment_id)
     # checks if comment exists
     if not comment:
@@ -126,11 +114,6 @@ def update_comment(pin_id, comment_id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-
-
-
-
-
 @pin_routes.route('/<int:pin_id>/comments', methods=["POST"])
 @login_required
 def create_comment(pin_id):
@@ -141,8 +124,6 @@ def create_comment(pin_id):
     # checks if pin exists
     if not pin:
         return {'errors': f"Pin {pin_id} does not exist"}, 400
-   
-
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -157,24 +138,20 @@ def create_comment(pin_id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-
-
 @pin_routes.route('/<int:pin_id>/comments/<int:comment_id>', methods=["DELETE"])
 @login_required
 def delete_comment(pin_id, comment_id):
+    """
+    Deletes a comment
+    """
     pin = Pin.query.get(pin_id)
     # checks if pin exists
     if not pin:
         return {'errors': f"Pin {pin_id} does not exist"}, 400
-   
-    """
-    Deletes a comment
-    """
     comment = Comment.query.get(comment_id)
     # checks if comment exists
     if not comment:
         return {'errors': f"Comment {comment_id} does not exist."}, 400
-    
     # checks if current user is a creator of the comment
     if comment.user_id != current_user.id:
         return {'errors': f"User is not the creator of comment {comment_id}."}, 401

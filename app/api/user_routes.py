@@ -25,13 +25,13 @@ def user(id):
     return user.to_dict()
 
 
-
 @user_routes.route('/<int:id>/boards')
 @login_required
 def get_boards_by_user_id(id):
     """
     Query for a user by id and returns that user in a dictionary
     """
+    # checking if user exist
     user = User.query.get(id)
     if not user:
         return {'errors': f"User {id} does not exist"}, 404

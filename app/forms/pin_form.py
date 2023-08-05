@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Email, ValidationError
 
-
+"""
+    Creates form for pin
+"""
 class PinForm(FlaskForm):
     title = StringField('title', validators=[DataRequired(message="Title is required")])
     description=TextAreaField('description', validators=[DataRequired(message="Description is required")])
