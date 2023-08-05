@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import db, Pin, Comment, Board
+from app.models import db, Pin, Comment, Board, PinBoard
 from app.forms import CommentForm, PinForm, BoardForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -43,7 +43,7 @@ def get_board(id):
     board = Board.query.get(id)
     # checks if pin exists
     if not board:
-        return {'errors': f"Board {id} does not exist."}
+        return {'errors': f"Board {id} does not exist."}, 404
     # pins = Pin.query.filter(Pin.pin_id == id).all()
     # pin_ids = [pin for pin in pins]
     return board.to_dict()
@@ -64,6 +64,11 @@ def create_board():
   
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    board_to_check = Board.query.filter(Board.user_id == current_user.id, Board.title==form.data["title"]).first()
+    if board_to_check:
+        return board_to_check.to_dict()
+    
     if form.validate_on_submit():
         board = Board(
             title=form.data['title'],
@@ -88,7 +93,7 @@ def update_board(id):
    
     # checks if board exists
     if not board:
-        return {'errors': f"Board {id} does not exist."}, 400
+        return {'errors': f"Board {id} does not exist."}, 404
     # checks if current user is a creator of the board
     if board.user_id != current_user.id:
         return {'errors': f"User is not the creator of pin {id}."}, 401
@@ -136,7 +141,7 @@ def create_pin(board_id):
     board = Board.query.get(board_id)
     # checks if board exists
     if not board:
-        return {'errors': f"Board {board_id} does not exist"}, 400
+        return {'errors': f"Board {board_id} does not exist"}, 404
    
     form = PinForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -153,6 +158,15 @@ def create_pin(board_id):
          
         )
         db.session.add(pin)
+        db.session.commit()
+      
+        board_pin = PinBoard(
+            pin_id=pin.id,
+            board_id=board_id,
+                
+        )
+       
+        db.session.add(board_pin)
         db.session.commit()
         return pin.to_dict(), 201
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

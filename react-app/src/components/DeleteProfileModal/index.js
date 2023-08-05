@@ -1,16 +1,21 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { Redirect } from "react-router-dom";
 import "./DeleteProfileModal.css";
+
 
 function DeleteProfileModal() {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
-  
+  const user = useSelector((state) => state.session.user);
   const handleDelete = async (e) => {
     e.preventDefault();
     alert("this feature coming soon");
     closeModal();
   };
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <div className="modal-body">

@@ -138,8 +138,10 @@ export default function pinsReducer(state = initialState, { type, payload }) {
       return updated;
 
     case REMOVE_PIN:
+      
       const removedState = { ...state };
       delete removedState.pins[payload];
+      
       return removedState;
     default:
       return state;

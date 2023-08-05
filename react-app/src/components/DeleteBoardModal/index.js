@@ -1,19 +1,24 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteBoard } from "../../store/boardReducer";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 // import "./DeleteProfileModal.css";
 
 function DeleteBoardModal({id}) {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const history = useHistory()
+  const user = useSelector((state) => state.session.user);
   const handleDelete = async (e) => {
     e.preventDefault();
     dispatch(deleteBoard(id));
     history.push("/boards")
     closeModal();
   };
+
+  if(!user){
+    return <Redirect to="/"/>
+  } 
 
   return (
     <div className="modal-body">
