@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import db, Pin, Comment, Board
+from app.models import db, Pin, Comment, Board, PinBoard
 from app.forms import CommentForm, PinForm, BoardForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -64,6 +64,11 @@ def create_board():
   
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    board_to_check = Board.query.filter(Board.user_id == current_user.id, Board.title==form.data["title"]).first()
+    if board_to_check:
+        return board_to_check.to_dict()
+    
     if form.validate_on_submit():
         board = Board(
             title=form.data['title'],
@@ -153,6 +158,15 @@ def create_pin(board_id):
          
         )
         db.session.add(pin)
+        db.session.commit()
+      
+        board_pin = PinBoard(
+            pin_id=pin.id,
+            board_id=board_id,
+                
+        )
+       
+        db.session.add(board_pin)
         db.session.commit()
         return pin.to_dict(), 201
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

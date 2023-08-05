@@ -76,6 +76,7 @@ export const createBoard=(board)=>async(dispatch)=>{
     if(response.ok){
         const data = await response.json();
         dispatch(addBoard(data))
+        return data.id
     }
 };
 

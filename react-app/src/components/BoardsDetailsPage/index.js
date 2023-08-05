@@ -18,7 +18,7 @@ const BoardDetailsPage = () => {
 
   const [shadow, setShadow] = useState(false);
 
-  console.log(board.pins);
+
   useEffect(() => {
     dispatch(getBoardById(id));
   }, [dispatch, id]);

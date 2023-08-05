@@ -19,7 +19,7 @@ const PinEditPage = () => {
   const [image_url, setImage_url] = useState(pin.images);
   const [kitchen, setKitchen] = useState(1);
   const [ errors, setErrors ] = useState({});
-  console.log(id)
+ 
   const history = useHistory()
   
   useEffect(()=>{

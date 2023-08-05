@@ -9,7 +9,7 @@ const BoardsPage = () => {
 
   const user = useSelector((state) => state.session.user);
   const boards = useSelector((state)=>Object.values(state.boards.boards))
-  console.log(boards)
+ 
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getAllBoards(user.id))

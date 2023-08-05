@@ -180,7 +180,7 @@ const AboutPage = () => {
   if(user){
     return <Redirect to="/pins"/>
   } 
-  console.log(user, 44444444)
+  
   return (
     <>
       <div className="container about-page">
