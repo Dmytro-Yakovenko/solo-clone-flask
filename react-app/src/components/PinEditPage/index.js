@@ -19,37 +19,48 @@ const PinEditPage = () => {
   const [image_url, setImage_url] = useState(pin.images);
   const [kitchen, setKitchen] = useState(1);
   const [ errors, setErrors ] = useState({});
+  const [submitted, setSubmitted]=useState(false)
  
   const history = useHistory()
   
-  useEffect(()=>{
-    dispatch(getPinById(id))
-  },[dispatch, id])
-
 
   useEffect(() => {
     const errors = {};
-    if (title?.length > 255) {
+    if (title && title?.length > 255) {
       errors.title = "title should be shorter than 255 characters";
     }
-    if (description?.length > 1500) {
+    if (description && description?.length > 1500) {
       errors.description = "title should be shorter than 1500 characters";
     }
-    if (ingredients?.length > 1500) {
+    if (ingredients && ingredients?.length > 1500) {
       errors.description = "ingredients should be shorter than 1500 characters";
     }
-    if (time.length > 10) {
+    if (time && time.length > 10) {
       errors.time = "ingredients should be shorter than 10 characters";
     }
-    if (image_url?.length > 255) {
+    if (image_url && image_url?.length > 255) {
       errors.image_url = "ingredients should be shorter than 10 characters";
     }
     setErrors(errors);
-  }, [setErrors, title, description, ingredients, time, image_url]);
+  }, [setErrors, title, description, ingredients, time, image_url, submitted, pin]);
+  useEffect(()=>{
+    dispatch(getPinById(id))
+    
+  },[dispatch, id])
+
+
+
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(true)
+    if(errors.title || errors.description || errors.ingredients || errors.time || errors.image_url ){
+      return 
+    }
     dispatch(
+      
       editPin(
         {
             title,
@@ -63,8 +74,8 @@ const PinEditPage = () => {
 
       )
     );
-    
-history.push("/pins")
+    setSubmitted(false)
+    history.push(`/pins/${id}`)
     setTitle("");
     setDescription("");
     setIngredients("");
@@ -98,7 +109,7 @@ history.push("/pins")
           required
           placeholder="Add title"
             />
-          {errors.title && <span>{errors.title}</span>}
+          {errors.title && submitted && <span>{errors.title}</span>}
           </label>
           <label>Tell everyone how you will cook
           <textarea 
@@ -109,7 +120,7 @@ history.push("/pins")
           cols="44"
           placeholder="Add description"
           />
-          {errors.description && <span>{errors.description}</span>}
+          {errors.description && submitted && <span>{errors.description}</span>}
           </label>
           <label>Ingredients
           <textarea
@@ -121,20 +132,20 @@ history.push("/pins")
            placeholder="Add ingredients"
            
            />
-          {errors.ingredients && <span>{errors.ingredients}</span>}
+          {errors.ingredients && submitted && <span>{errors.ingredients}</span>}
           </label>
           <label>Time
 
           <input required value={time} onChange={(e)=>setTime(e.target.value)}/>
-          {errors.time && <span>{errors.time}</span>}
+          {errors.time && submitted && <span>{errors.time}</span>}
           </label>
           <label>Image_url
           <input required  value={image_url} onChange={(e)=>setImage_url(e.target.value)}/>
-          {errors.image_url && <span>{errors.image_url}</span>}
+          {errors.image_url && submitted && <span>{errors.image_url}</span>}
           </label>
           <button 
           type="submit"
-          disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
+          
           >
             Edit Pin
             </button>

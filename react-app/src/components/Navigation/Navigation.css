@@ -169,10 +169,11 @@ a {
 }
 
 .nav-profile-btn {
-  border-radius: 50%;
+ color: #000;
+ border-radius: 10px;
+ font-size: 12px;
   border: none;
-  width: 35px;
-  height: 35px;
+  padding: 5px;
   background-color: rgb(238, 236, 115); 
   display: flex;
   justify-content: center;

@@ -21,7 +21,7 @@ const images = [
     alt: "food4",
   },
   {
-    src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1690382340/505f07b3dab3ce5c01bb0838b84884f6_doa7sx.jpg",
+    src: "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691268706/4990cfc15a4e2ee7028ecf016c1d511a_evc5ga.jpg",
     alt: "food5",
   },
   {

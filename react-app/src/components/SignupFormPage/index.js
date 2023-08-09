@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
@@ -16,11 +16,47 @@ function SignupFormPage() {
   const [userImage, setUserImage] = useState("");
 
   const [errors, setErrors] = useState([]);
+  const [frontErrors, setFrontErrors] = useState({});
+  const [isSubmitted, setIsSubmitted]= useState(false)
+
+  useEffect(() => {
+    const errors = {};
+    if (email.length < 6) {
+      errors.email = "6 characters in email";
+    }
+    if (username.length < 2) {
+      errors.username = "2 characters in username";
+    }
+    if (password.length < 6) {
+      errors.password = "6 characters in password";
+    }
+    if (confirmPassword.length < 6) {
+      errors.confirmPassword= "6 characters in confirm password";
+    }
+    if (firstName.length < 2) {
+      errors.firstName = "2 characters in first name";
+    }
+    if (lastName.length < 2){
+      errors.lastName = "2 characters in last name";
+    }
+    if (userImage.length < 2){
+      errors.userImage = "2 characters in user image";
+    }
+
+
+
+    setFrontErrors(errors);
+  }, [email, password, confirmPassword, userImage, firstName, lastName, username]);
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitted(true)
+      if(frontErrors.email || frontErrors.password || frontErrors.confirmPassword || frontErrors.userImage || frontErrors.lastName || frontErrors.firstName || frontErrors.username ){
+        return 
+      }
+    
     if (password === confirmPassword) {
       const data = await dispatch(signUp(username, email, password, firstName, lastName, userImage));
       if (data) {
@@ -62,6 +98,7 @@ function SignupFormPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
+               {frontErrors.username && isSubmitted && <span className="error">{frontErrors.username}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -72,6 +109,7 @@ function SignupFormPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+               {frontErrors.email && isSubmitted && <span className="error">{frontErrors.email}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -82,6 +120,7 @@ function SignupFormPage() {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
+               {frontErrors.firstName && isSubmitted && <span className="error">{frontErrors.firstName}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -92,6 +131,7 @@ function SignupFormPage() {
                 onChange={(e) => setLastName(e.target.value)}
                 required
               />
+               {frontErrors.lastName && isSubmitted && <span className="error">{frontErrors.lastName}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -102,6 +142,7 @@ function SignupFormPage() {
                 onChange={(e) => setUserImage(e.target.value)}
                 required
               />
+               {frontErrors.userImage && isSubmitted && <span className="error">{frontErrors.userImage}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -112,6 +153,7 @@ function SignupFormPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+               {frontErrors.password && isSubmitted && <span className="error">{frontErrors.password}</span>}
             </div>
 
             <div className="input-wrapper">
@@ -122,6 +164,7 @@ function SignupFormPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+               {frontErrors.confirmPassword && isSubmitted && <span className="error">{frontErrors.confirmPassword}</span>}
             </div>
 
             <button className="btn primary" type="submit">Sign Up</button>

@@ -40,9 +40,11 @@ const BoardDetailsPage = () => {
           </h3>
           <p>{user.email}</p>
           <div className="board-details-page-btn-wrapper">
-            <button className="board-detail-btn board-detail-btn-edit">
+            <Link 
+            to ={`/users/${user.id}/edit`}
+            className="board-detail-btn board-detail-btn-edit">
               Edit Profile
-            </button>
+            </Link>
 
             <OpenModalButton
               modalComponent={<DeleteProfileModal />}

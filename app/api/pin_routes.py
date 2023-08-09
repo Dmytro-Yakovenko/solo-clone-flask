@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import db, Pin, Comment
+from app.models import db, Pin, Comment, PinBoard
 from app.forms import CommentForm, PinForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -28,10 +28,13 @@ def get_pin(id):
     Query for a pin  by id and returns that pin in a dictionary
     """
     pin = Pin.query.get(id)
+    pin_board =PinBoard.query.filter(PinBoard.pin_id==id).first()
     # checks if pin exists
     if not pin:
         return {'errors': f"Pin {id} does not exist."}
-    return pin.to_dict()
+    pin_for_response = pin.to_dict()
+    pin_for_response['board_id']=pin_board.to_dict()
+    return pin_for_response
 
 
 @pin_routes.route('/<int:id>', methods=["PUT"])

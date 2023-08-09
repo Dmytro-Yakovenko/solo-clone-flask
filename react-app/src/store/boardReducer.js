@@ -33,6 +33,21 @@ const removeBoard = (id)=>({
 
 })
 
+export const getBoardByTitle = (id, title) => async (dispatch)=>{
+    const response = await fetch (`/api/users/${id}/boards/search?title=${title}`)
+    if(response.ok){
+        const data = await response.json();
+        if(data.message){
+            dispatch(getOneBoard(null))
+            return
+        }
+        if(data.errors){
+            return
+        }
+        dispatch(getOneBoard(data))
+}
+}
+
 
 export const getAllBoards=(id)=>async (dispatch)=>{
     const response = await fetch(`/api/users/${id}/boards`)
@@ -76,6 +91,7 @@ export const createBoard=(board)=>async(dispatch)=>{
     if(response.ok){
         const data = await response.json();
         dispatch(addBoard(data))
+        dispatch(getOneBoard(data))
         return data.id
     }
 };

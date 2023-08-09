@@ -75,6 +75,7 @@ export const createPin = (pin, boardId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addPin(data));
+    return data.id
   }
 };
 
@@ -89,7 +90,7 @@ export const editPin = (pin, id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-
+    dispatch(getOnePin(data))
     dispatch(updatePin(data));
   }
 };
