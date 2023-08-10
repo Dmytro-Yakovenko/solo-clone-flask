@@ -15,6 +15,7 @@ class Pin(db.Model):
     time =  db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     image_url = db.Column(db.String(255), nullable=False)
+    is_saved = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     
@@ -35,7 +36,7 @@ class Pin(db.Model):
             "comments": [comment.to_dict() for comment in self.comment],
             "images": self.image_url,
             "user": self.user.to_dict(),
-            # 'board': self.board.to_dict(),
+            "is_saved":self.is_saved,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

@@ -8,6 +8,7 @@ import DeletePinModal from "../DeletePinModal";
 import OpenModalButton from "../OpenModalButton";
 import "./PinsDetailsPage.css";
 import CreateBoardPinModal from "../CreateBoardPinModal";
+import { getBoardById } from "../../store/boardReducer";
 
 const PinsDetailsPage = () => {
   const dispatch = useDispatch();
@@ -15,12 +16,23 @@ const PinsDetailsPage = () => {
 
   const pin = useSelector((state) => state.pins.pin);
   const user = useSelector((state) => state.session.user);
+  const board = useSelector((state) => state.boards.board);
   const [comment, setComment] = useState("");
   const [isIngredientsShow, setIngredientsShow] = useState(true);
   const [isCommentsShow, setCommentsShow] = useState(true);
+
+  useEffect(() => {
+    if (pin?.board_id?.board_id){
+      dispatch(getBoardById(pin?.board_id?.board_id));
+    }
+  
+  }, [dispatch, pin]);
+
   useEffect(() => {
     dispatch(getPinById(id));
   }, [dispatch, id]);
+
+
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -73,9 +85,14 @@ const PinsDetailsPage = () => {
               </p>
               {pin?.user_id === user.id && (
                 <>
-                  <Link to={`/pins/${id}/edit`} className="pins-details-update">
-                    Update Pin
-                  </Link>
+                  {!pin.is_saved && (
+                    <Link
+                      to={`/pins/${id}/edit`}
+                      className="pins-details-update"
+                    >
+                      Update Pin
+                    </Link>
+                  )}
 
                   <OpenModalButton
                     modalComponent={<DeletePinModal id={id} />}
@@ -96,6 +113,8 @@ const PinsDetailsPage = () => {
                         ingredients: pin.ingredients,
                         user_id: user.id,
                         image_url: pin.images,
+                        is_saved: true,
+                        board,
                       }}
                     />
                   }

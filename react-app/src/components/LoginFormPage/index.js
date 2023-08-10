@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -12,11 +12,29 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [frontErrors, setFrontErrors] = useState({});
+  const [isSubmitted, setIsSubmitted]= useState(false)
+
+  useEffect(() => {
+    const errors = {};
+    if (email.length < 6) {
+      errors.email = "6 characters in email";
+    }
+    if (password.length < 6) {
+      errors.password = "6 characters in password";
+    }
+    setFrontErrors(errors);
+  }, [email, password]);
 
   if (sessionUser) return <Redirect to="/pins" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitted(true)
+    if(frontErrors.email || frontErrors.password){
+      return 
+    }
+  
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
@@ -56,9 +74,10 @@ function LoginFormPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {frontErrors.email && isSubmitted && <span className="error">{frontErrors.email}</span>}
             </div>
 
-            <div className="input-wrapper" >
+            <div className="input-wrapper">
               <label>Password</label>
               <input
                 type="password"
@@ -67,6 +86,10 @@ function LoginFormPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+
+              {frontErrors.password && isSubmitted && (
+                <span className="error">{frontErrors.password}</span>
+              )}
             </div>
 
             <button className=" btn primary" type="submit">

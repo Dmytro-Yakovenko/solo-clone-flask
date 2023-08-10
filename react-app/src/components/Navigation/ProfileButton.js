@@ -36,17 +36,16 @@ function ProfileButton({ user }) {
       <ul className="navigation-menu" ref={ulRef}>
         {user ? (
           <>
-            <Link to ="/boards" className="nav-btn" >
-              <img src={user.user_image} alt={user.username} />
-              <span>{user.username}</span>
+            <Link to ="/boards" className="nav-profile-btn" >
+            All my boards
+             
             </Link>
             <button
             onClick={openMenu}
-            className="nav-profile-btn"
+            className="nav-btn"
             >
-              <TfiArrowCircleDown
-              className="nav-icon"
-              />
+              <img src={user.user_image} alt={user.username} />
+              <span>{user.username}</span>
             </button>
             <ul className={ulClassName}>
               <li> Hello, </li>
@@ -63,7 +62,7 @@ function ProfileButton({ user }) {
               </NavLink>
             </li>
             <li>
-              <NavLink to={`/${user.id}/edit`} className="navigation-link nav-login">
+              <NavLink to={`/users/${user.id}/edit`} className="navigation-link nav-login">
                 Edit User
               </NavLink>
             </li>
