@@ -21,23 +21,23 @@ function SignupFormPage() {
 
   useEffect(() => {
     const errors = {};
-    if (email.length < 6) {
-      errors.email = "6 characters in email";
+    if (email.length < 6 || email.length>50) {
+      errors.email = "At least 6 characters in email but less than 50 characters";
     }
-    if (username.length < 2) {
-      errors.username = "2 characters in username";
+    if (username.length < 2 || username.length >50) {
+      errors.username = "At least 2 characters in username but less than 50 characters";
     }
-    if (password.length < 6) {
-      errors.password = "6 characters in password";
+    if (password.length < 6 || password.length >50) {
+      errors.password = "At least 6 characters in password but less than 50 characters";
     }
-    if (confirmPassword.length < 6) {
-      errors.confirmPassword= "6 characters in confirm password";
+    if (confirmPassword.length < 6 || confirmPassword.length >50) {
+      errors.confirmPassword= "At least 6 characters in confirm password but less than 50 characters";
     }
-    if (firstName.length < 2) {
-      errors.firstName = "2 characters in first name";
+    if (firstName.length < 2 || firstName.length>50) {
+      errors.firstName = "At least 6 characters in first name but less than 50 characters";
     }
-    if (lastName.length < 2){
-      errors.lastName = "2 characters in last name";
+    if (lastName.length < 2 || lastName.length > 50){
+      errors.lastName = "At least 2 characters in last name but less than 50 characters";
     }
     if (userImage.length < 2){
       errors.userImage = "2 characters in user image";

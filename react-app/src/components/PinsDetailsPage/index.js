@@ -22,12 +22,17 @@ const PinsDetailsPage = () => {
   const [isCommentsShow, setCommentsShow] = useState(true);
 
   useEffect(() => {
+    if (pin?.board_id?.board_id){
+      dispatch(getBoardById(pin?.board_id?.board_id));
+    }
+  
+  }, [dispatch, pin]);
+
+  useEffect(() => {
     dispatch(getPinById(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    dispatch(getBoardById(pin?.board_id?.board_id));
-  }, [dispatch, pin]);
+
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -80,7 +85,7 @@ const PinsDetailsPage = () => {
               </p>
               {pin?.user_id === user.id && (
                 <>
-                  {pin.is_saved && (
+                  {!pin.is_saved && (
                     <Link
                       to={`/pins/${id}/edit`}
                       className="pins-details-update"

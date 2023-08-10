@@ -19,16 +19,21 @@ function CreateBoardPinModal({pins}) {
   const [title, setTitle] = useState(pins.board.title);
   const [description, setDescription] = useState(pins.board.description);
   const [boardImageUrl, setBoardImageUrl] = useState(pins.board.board_image_url );
-
+ 
   useEffect(()=>{
-    dispatch(getBoardByTitle(user.id, title))
+    if(title){
+      dispatch(getBoardByTitle(user.id, title))
+    }
+   
   },[dispatch, title, user.id])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(board){
         dispatch(createPin(pins, board.id))
         closeModal();
         history.push(`/boards/${board.id}`)
+        return 
     }
     const boardId= await dispatch(
         createBoard(

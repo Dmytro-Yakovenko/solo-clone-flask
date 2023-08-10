@@ -1,3 +1,5 @@
+import { getBoardById } from "./boardReducer";
+
 // constants
 const GET_PINS = "pin/GET_PINS";
 const ADD_PIN = "pin/ADD_PIN";
@@ -33,7 +35,7 @@ const removePin = (id) => ({
 });
 
 export const getAllPins = () => async (dispatch) => {
-  const response = await fetch("/api/pins/");
+  const response = await fetch(`/api/pins/search?is_saved=False`);
 
   if (response.ok) {
     const data = await response.json();
@@ -75,6 +77,7 @@ export const createPin = (pin, boardId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addPin(data));
+    dispatch(getBoardById(boardId))
     return data.id
   }
 };

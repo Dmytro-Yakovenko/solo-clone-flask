@@ -16,25 +16,22 @@ const BoardCreatePage = () => {
   );
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    dispatch(
-      createBoard(
-        {
-          title,
-          description,
-          board_image_url: boardImageUrl,
-          user_id: user.id,
-        },
-  
-      )
+    const boardId =await dispatch(
+      createBoard({
+        title,
+        description,
+        board_image_url: boardImageUrl,
+        user_id: user.id,
+      })
     );
 
-    history.push("/boards");
+    history.push(`/boards/${boardId}`);
   };
-  if(!user){
-    return <Redirect to="/"/>
-  } 
+  if (!user) {
+    return <Redirect to="/" />;
+  }
   return (
     <main className="main">
       <div className="container board-create-page">
@@ -43,9 +40,9 @@ const BoardCreatePage = () => {
             value={kitchen}
             onChange={(e) => {
               setKitchen(e.target.value);
-              setTitle(boardConfig[e.target.value-1].kitchen)
-              setBoardImageUrl(boardConfig[e.target.value-1].board_image_url)
-              setDescription(boardConfig[e.target.value-1].description)
+              setTitle(boardConfig[e.target.value - 1].kitchen);
+              setBoardImageUrl(boardConfig[e.target.value - 1].board_image_url);
+              setDescription(boardConfig[e.target.value - 1].description);
             }}
           >
             {boardConfig.map((item) => (
@@ -54,13 +51,13 @@ const BoardCreatePage = () => {
               </option>
             ))}
           </select>
-          <img 
-          className="board-create-page-image"
-          src={boardImageUrl} alt={title} />
+          <img
+            className="board-create-page-image"
+            src={boardImageUrl}
+            alt={title}
+          />
           <p>{description}</p>
-          <button
-          
-          type="submit">Create Board</button>
+          <button type="submit">Create Board</button>
         </form>
       </div>
     </main>

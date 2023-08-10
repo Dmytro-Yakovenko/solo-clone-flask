@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./BoardDetailsPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoardById } from "../../store/boardReducer";
-import { useParams, Link, Redirect} from "react-router-dom";
+import { useParams, Link, Redirect } from "react-router-dom";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LuEdit } from "react-icons/lu";
@@ -15,16 +15,13 @@ const BoardDetailsPage = () => {
   const board = useSelector((state) => state.boards.board);
   const user = useSelector((state) => state.session.user);
   const colImages = board?.pins?.length < 5 ? board?.pins?.length : 5;
-
   const [shadow, setShadow] = useState(false);
-
-
   useEffect(() => {
     dispatch(getBoardById(id));
   }, [dispatch, id]);
-  if(!user){
-    return <Redirect to="/"/>
-  } 
+  if (!user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <main className="main">
@@ -40,9 +37,10 @@ const BoardDetailsPage = () => {
           </h3>
           <p>{user.email}</p>
           <div className="board-details-page-btn-wrapper">
-            <Link 
-            to ={`/users/${user.id}/edit`}
-            className="board-detail-btn board-detail-btn-edit">
+            <Link
+              to={`/users/${user.id}/edit`}
+              className="board-detail-btn board-detail-btn-edit"
+            >
               Edit Profile
             </Link>
 
@@ -68,7 +66,6 @@ const BoardDetailsPage = () => {
             />
             {shadow && (
               <div className="wrapper">
-             
                 <OpenModalButton
                   modalComponent={<DeleteBoardModal id={id} />}
                   buttonText={<RiDeleteBin6Line className="icon" />}
@@ -84,27 +81,34 @@ const BoardDetailsPage = () => {
         <h4 className="board-details-page-subtitle">Your dinner ideas</h4>
 
         <section className="board-details-page-section">
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              350: 1,
-              700: 2,
-              900: 3,
-              1000: colImages,
-            }}
-          >
-            <Masonry columnsCount={5}>
-              {board?.pins?.map((item) => (
-                <Link className="boards-page-link" to={`/pins/${item.id}`}>
-                  <img
-                    className="boards-image"
-                    src={item.images}
-                    alt={item.title}
-                  />
-                  <h4>{item.title}</h4>
-                </Link>
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
+        {!!board?.pins?.length &&   <ResponsiveMasonry
+          
+          columnsCountBreakPoints={{
+            350: 1,
+            700: 2,
+            900: 3,
+            1000: colImages,
+          }}
+        >
+          <Masonry columnsCount={colImages}>
+
+            {board?.pins?.map((item) => (
+              <Link
+                key={item.id}
+                className="boards-page-link"
+                to={`/pins/${item.id}`}
+              >
+                <img
+                  className="boards-image"
+                  src={item.images}
+                  alt={item.title}
+                />
+                <h4>{item.title}</h4>
+              </Link>
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>}
+        
         </section>
       </div>
     </main>

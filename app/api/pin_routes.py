@@ -7,18 +7,21 @@ from app.api.auth_routes import validation_errors_to_error_messages
 pin_routes = Blueprint('pins', __name__)
 
 
-@pin_routes.route('/')
+@pin_routes.route('/search')
 @login_required
 def get_all_pins():
     """
     Query for all pins of  and returns them in a list of pin dictionaries
     """
-    pins = Pin.query.all()
-    pin_list=[]
-    for pin in pins:
-        pin_dict=pin.to_dict()
-        pin_list.append(pin_dict)
-    return jsonify({"pins":pin_list})
+    args= request.args
+    is_saved = args.to_dict()  
+    if is_saved['is_saved']=="False":
+        pins = Pin.query.filter(Pin.is_saved==False)
+        pin_list=[]
+        for pin in pins:
+            pin_dict=pin.to_dict()
+            pin_list.append(pin_dict)
+        return jsonify({"pins":pin_list})
 
 
 @pin_routes.route('/<int:id>')
@@ -27,6 +30,7 @@ def get_pin(id):
     """
     Query for a pin  by id and returns that pin in a dictionary
     """
+    
     pin = Pin.query.get(id)
     pin_board =PinBoard.query.filter(PinBoard.pin_id==id).first()
     # checks if pin exists
