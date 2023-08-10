@@ -14,7 +14,8 @@ from app.models import db, User, environment, SCHEMA
 # SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'dc732e0ce0dc'
+# revision = 'dc732e0ce0dc'
+revision ='7e3f08bd9590'
 down_revision = None
 branch_labels = None
 depends_on = None
