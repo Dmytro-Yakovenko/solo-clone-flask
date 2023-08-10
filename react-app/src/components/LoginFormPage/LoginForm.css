@@ -65,6 +65,8 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 10px;
+    position: relative;
+    margin-bottom: 40px;
 }
 
 .input-wrapper input {
@@ -73,5 +75,13 @@
     max-width: 380px;
     padding: 10px;
     border-radius: 10px;
+
+}
+
+.error {
+   color :rgb(163, 62, 77);
+   position: absolute;
+   bottom: -40px;
+   left: 0;
 
 }

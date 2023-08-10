@@ -67,7 +67,7 @@ textarea {
 	resize: none;
   }
  
-a button {
+a, button {
 	cursor: pointer;
 }  
 

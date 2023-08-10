@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom/";
 import { createPin } from "../../store/pinReducer";
 import { boardConfig } from "../../utils/boardConfig";
-
+import { getBoardByTitle } from "../../store/boardReducer";
+import { createBoard } from "../../store/boardReducer";
 import "./PinCreatePage.css";
 const PinCreatePage = () => {
   const dispatch = useDispatch();
+  const board = useSelector((state) => state.boards.board);
   const user = useSelector((state) => state.session.user);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -14,67 +16,114 @@ const PinCreatePage = () => {
   const [time, setTime] = useState("");
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
-  const [ errors, setErrors ] = useState({});
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  const history = useHistory()
-  
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getBoardByTitle(user.id, title));
+  }, [dispatch, kitchen, user.id]);
+
   useEffect(() => {
     const errors = {};
-    if (title.length > 255) {
-      errors.title = "title should be shorter than 255 characters";
+    if (title.length > 255 || title.length < 5) {
+      errors.title =
+        "title should be shorter than 255 characters and longer than 5 characters";
     }
-    if (description.length > 1500) {
-      errors.description = "title should be shorter than 1500 characters";
+    if (description.length > 1500 || description.length < 10) {
+      errors.description =
+        "description should be shorter than 1500 characters and longer than 10 characters ";
     }
-    if (ingredients.length > 1500) {
-      errors.description = "ingredients should be shorter than 1500 characters";
+    if (ingredients.length > 1500 || ingredients.length < 10) {
+      errors.ingredients =
+        "ingredients should be shorter than 1500 characters and longer than 10 characters";
     }
-    if (time.length > 10) {
-      errors.time = "ingredients should be shorter than 10 characters";
+    if (time.length > 10 || time.length < 2) {
+      errors.time =
+        "ingredients should be shorter than 10 characters and longer than 2 characters";
     }
-    if (image_url.length > 255) {
-      errors.image_url = "ingredients should be shorter than 10 characters";
+    if (image_url.length > 255 || image_url.length < 10) {
+      errors.image_url =
+        "image url should be longer than 10 characters and shorter than 255";
     }
+
+    if (!image_url.match(/(\.jpe?g$)|(\.png$)/g)) {
+      errors.image_url = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
     setErrors(errors);
-  }, [setErrors, title, description, ingredients, time, image_url]);
+  }, [setErrors, title, description, ingredients, time, image_url, submitted]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
-      createPin(
-        {
-            title,
-            description,
-            ingredients,
-            time,
-            image_url,
-            user_id:user.id,
-        },
-        kitchen
+    setSubmitted(true);
+    if (
+      errors.title ||
+      errors.description ||
+      errors.ingredients ||
+      errors.time ||
+      errors.image_url
+    ) {
+      return;
+    }
+const formData = {
+  title,
+  description,
+  ingredients,
+  time,
+  image_url,
+  user_id: user.id,
+}
+    if (board) {
+      
+      const id = await dispatch(
+        createPin(
+          formData,
+          board.id
+        )
+      );
 
-      )
-    );
+      history.push(`/pins/${id}`);
+    }
+if(!board){
+  const boardId= await dispatch(
+    createBoard(
+      {
+        title:boardConfig[kitchen-1].kitchen,
+        description:boardConfig[kitchen-1].description,
+        board_image_url: boardConfig[kitchen-1].board_image_url,
+        user_id: user.id,
+      },
+
+    )
+  );
+
+  if(boardId){
+    const id = await dispatch(createPin(formData, boardId))
     
-history.push("/pins")
+    history.push(`/pins/${id}`)
+  }
+
+}
+    setSubmitted(false);
     setTitle("");
     setDescription("");
     setIngredients("");
     setTime("");
     setImage_url("");
     setKitchen(1);
-    setErrors({})
+    setErrors({});
   };
 
-  if(!user){
-    return <Redirect to="/"/>
-  } 
+  if (!user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <main className="main">
       <div className="container pins-create-page">
-        <form 
-        className="pins-create-page-form"
-        onSubmit={handleSubmit}>
+        <form className="pins-create-page-form" onSubmit={handleSubmit}>
           <select value={kitchen} onChange={(e) => setKitchen(e.target.value)}>
             {boardConfig.map((item) => (
               <option key={item.id} value={item.id}>
@@ -82,53 +131,63 @@ history.push("/pins")
               </option>
             ))}
           </select>
-          <label>Tell everyone what are you going to cook
-          <input 
-          value={title} 
-          onChange={(e)=>setTitle(e.target.value)}
-          required
-          placeholder="Add title"
+          <label>
+            Tell everyone what are you going to cook
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              placeholder="Add title"
             />
-          {errors.title && <span>{errors.title}</span>}
+            {errors.title && submitted && <span>{errors.title}</span>}
           </label>
-          <label>Tell everyone how you will cook
-          <textarea 
-          required  
-          value={description} 
-          onChange={(e)=>setDescription(e.target.value)}
-          rows="5"
-          cols="44"
-          placeholder="Add description"
-          />
-          {errors.description && <span>{errors.description}</span>}
+          <label>
+            Tell everyone how you will cook
+            <textarea
+              required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows="5"
+              cols="44"
+              placeholder="Add description"
+            />
+            {errors.description && submitted && (
+              <span>{errors.description}</span>
+            )}
           </label>
-          <label>Ingredients
-          <textarea
-           required  
-           value={ingredients} 
-           onChange={(e)=>setIngredients(e.target.value)}
-           rows="5"
-           cols="44"
-           placeholder="Add ingredients"
-           
-           />
-          {errors.ingredients && <span>{errors.ingredients}</span>}
+          <label>
+            Ingredients
+            <textarea
+              required
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              rows="5"
+              cols="44"
+              placeholder="Add ingredients"
+            />
+            {errors.ingredients && submitted && (
+              <span>{errors.ingredients}</span>
+            )}
           </label>
-          <label>Time
-
-          <input required value={time} onChange={(e)=>setTime(e.target.value)}/>
-          {errors.time && <span>{errors.time}</span>}
+          <label>
+            Time
+            <input
+              required
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            />
+            {errors.time && submitted && <span>{errors.time}</span>}
           </label>
-          <label>Image_url
-          <input required  value={image_url} onChange={(e)=>setImage_url(e.target.value)}/>
-          {errors.image_url && <span>{errors.image_url}</span>}
+          <label>
+            Image_url
+            <input
+              required
+              value={image_url}
+              onChange={(e) => setImage_url(e.target.value)}
+            />
+            {errors.image_url && submitted && <span>{errors.image_url}</span>}
           </label>
-          <button 
-          type="submit"
-          disabled={!!errors.title || !!errors.description || !!errors.ingredients || !!errors.time || !!errors.image_url}
-          >
-            Create Pin
-            </button>
+          <button type="submit">Create Pin</button>
         </form>
       </div>
     </main>

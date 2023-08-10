@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import "./CreateBoardPinModal.css";
-import { useState } from "react";
-import { createBoard } from "../../store/boardReducer";
+import { useEffect, useState } from "react";
+import { createBoard, getAllBoards, getBoardByTitle } from "../../store/boardReducer";
 import { boardConfig } from "../../utils/boardConfig"
 import { createPin } from "../../store/pinReducer";
 
@@ -13,15 +13,28 @@ function CreateBoardPinModal({pins}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const history = useHistory()
-  const[kitchen, setKitchen]= useState("");
-  const [title, setTitle] = useState(boardConfig[0].kitchen);
-  const [description, setDescription] = useState(boardConfig[0].description);
-  const [boardImageUrl, setBoardImageUrl] = useState(
-    boardConfig[0].board_image_url
-  );
+  const board = useSelector(state=>state.boards.board)
+  const finded = boardConfig.find(item=>item.kitchen===pins.board.title)
+  const[kitchen, setKitchen]= useState(finded.id);
+  const [title, setTitle] = useState(pins.board.title);
+  const [description, setDescription] = useState(pins.board.description);
+  const [boardImageUrl, setBoardImageUrl] = useState(pins.board.board_image_url );
+ 
+  useEffect(()=>{
+    if(title){
+      dispatch(getBoardByTitle(user.id, title))
+    }
+   
+  },[dispatch, title, user.id])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(board){
+        dispatch(createPin(pins, board.id))
+        closeModal();
+        history.push(`/boards/${board.id}`)
+        return 
+    }
     const boardId= await dispatch(
         createBoard(
           {
@@ -37,7 +50,7 @@ function CreateBoardPinModal({pins}) {
       if(boardId){
         dispatch(createPin(pins, boardId))
         closeModal();
-        history.push("/boards")
+        history.push(`/boards/${boardId}`)
       }
   
    
@@ -71,10 +84,16 @@ function CreateBoardPinModal({pins}) {
           <img 
           className="board-create-page-image"
           src={boardImageUrl} alt={title} />
-          <p>{description}</p>
-          <button
+          <p 
+          className="form-text"
+          >{description}</p>
+         {board && <button
           className="modal-btn confirm"
-          type="submit">Create Board</button>
+          type="submit">Add To Board</button>}
+          {!board && <button
+          className="modal-btn confirm"
+          type="submit">Create Board</button>}
+        
            <button className="modal-btn  cancel" onClick={closeModal}>Cancel</button>
         </form>
       <div className="modal-button-wrapper">

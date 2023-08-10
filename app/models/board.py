@@ -7,19 +7,21 @@ class Board(db.Model):
     
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-        
+    
+    #columns  
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     description =  db.Column(db.String(1500), nullable=False)
-    title =  db.Column(db.String(255), nullable=False, unique=True)
+    title =  db.Column(db.String(255), nullable=False)
     board_image_url=db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-
+   
+    # relationship betwen table
     pin = db.relationship("Pin", secondary=add_prefix_for_prod("pins_boards"), back_populates= "board")
     user = db.relationship("User", back_populates="board")
     
-    
+    #format data
     def to_dict(self):
         return {
             'id': self.id,
@@ -30,6 +32,4 @@ class Board(db.Model):
             'board_image_url':self.board_image_url,
             'created_at': self.created_at,
             'updated_at': self.updated_at
-            
-            
         }
