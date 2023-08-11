@@ -97,6 +97,7 @@ export const createBoard=(board)=>async(dispatch)=>{
 };
 
 export const editBoard =(board, id)=>async(dispatch)=>{
+
     const response = await fetch(`/api/boards/${id}`,{
         method:"PUT",
         headers: {
