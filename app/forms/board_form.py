@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, TextAreaField
+from wtforms import SelectField, TextAreaField, StringField
 from wtforms.validators import DataRequired, Email, ValidationError
 
 # list of kitchens for select
@@ -15,3 +15,5 @@ class BoardForm(FlaskForm):
                         DataRequired(message="Title is required")])
     description = TextAreaField('description', validators=[
                                 DataRequired(message="Description is required")])
+    board_image_url = StringField('board_image_url',validators=[
+                                DataRequired(message="Description is required")] )

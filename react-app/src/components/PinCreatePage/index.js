@@ -14,6 +14,7 @@ const PinCreatePage = () => {
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [time, setTime] = useState("");
+  // const [image_url, setImage_url] = useState("https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg");
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
   const [errors, setErrors] = useState({});
@@ -43,17 +44,17 @@ const PinCreatePage = () => {
       errors.time =
         "ingredients should be shorter than 10 characters and longer than 2 characters";
     }
-    if (image_url.length > 255 || image_url.length < 10) {
-      errors.image_url =
-        "image url should be longer than 10 characters and shorter than 255";
-    }
+    // if (image_url.length > 255 || image_url.length < 10) {
+    //   errors.image_url =
+    //     "image url should be longer than 10 characters and shorter than 255";
+    // }
 
-    if (!image_url.match(/(\.jpe?g$)|(\.png$)/g)) {
-      errors.image_url = "Image URL must end in .png, .jpg, or .jpeg";
-    }
+    // if (!image_url.match(/(\.jpe?g$)|(\.png$)/g)) {
+    //   errors.image_url = "Image URL must end in .png, .jpg, or .jpeg";
+    // }
 
     setErrors(errors);
-  }, [setErrors, title, description, ingredients, time, image_url, submitted]);
+  }, [setErrors, title, description, ingredients, time, submitted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,50 +63,42 @@ const PinCreatePage = () => {
       errors.title ||
       errors.description ||
       errors.ingredients ||
-      errors.time ||
-      errors.image_url
+      errors.time
+      // errors.image_url
     ) {
       return;
     }
-const formData = {
-  title,
-  description,
-  ingredients,
-  time,
-  image_url,
-  user_id: user.id,
-}
+    const formData = {
+      title,
+      description,
+      ingredients,
+      time,
+      user_id: user.id,
+    };
+    if (image_url) {
+      formData["image_url"] = image_url;
+    }
     if (board) {
-      
-      const id = await dispatch(
-        createPin(
-          formData,
-          board.id
-        )
-      );
+      const id = await dispatch(createPin(formData, board.id));
 
       history.push(`/pins/${id}`);
     }
-if(!board){
-  const boardId= await dispatch(
-    createBoard(
-      {
-        title:boardConfig[kitchen-1].kitchen,
-        description:boardConfig[kitchen-1].description,
-        board_image_url: boardConfig[kitchen-1].board_image_url,
-        user_id: user.id,
-      },
+    if (!board) {
+      const boardId = await dispatch(
+        createBoard({
+          title: boardConfig[kitchen - 1].kitchen,
+          description: boardConfig[kitchen - 1].description,
+          board_image_url: boardConfig[kitchen - 1].board_image_url,
+          user_id: user.id,
+        })
+      );
 
-    )
-  );
+      if (boardId) {
+        const id = await dispatch(createPin(formData, boardId));
 
-  if(boardId){
-    const id = await dispatch(createPin(formData, boardId))
-    
-    history.push(`/pins/${id}`)
-  }
-
-}
+        history.push(`/pins/${id}`);
+      }
+    }
     setSubmitted(false);
     setTitle("");
     setDescription("");
@@ -149,7 +142,7 @@ if(!board){
               onChange={(e) => setDescription(e.target.value)}
               rows="5"
               cols="44"
-              placeholder="Add description"
+              placeholder="Add description in this format: step1. step2. step3.  ... "
             />
             {errors.description && submitted && (
               <span>{errors.description}</span>
@@ -163,7 +156,7 @@ if(!board){
               onChange={(e) => setIngredients(e.target.value)}
               rows="5"
               cols="44"
-              placeholder="Add ingredients"
+              placeholder="Add ingredients in this format: ingredient1. ingredient2. ingredient3. ... "
             />
             {errors.ingredients && submitted && (
               <span>{errors.ingredients}</span>
@@ -175,15 +168,16 @@ if(!board){
               required
               value={time}
               onChange={(e) => setTime(e.target.value)}
+              placeholder="30 min"
             />
             {errors.time && submitted && <span>{errors.time}</span>}
           </label>
           <label>
             Image_url
             <input
-              required
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
+              placeholder="we want you to add your link"
             />
             {errors.image_url && submitted && <span>{errors.image_url}</span>}
           </label>

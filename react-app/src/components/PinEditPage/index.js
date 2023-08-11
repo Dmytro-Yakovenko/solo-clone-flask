@@ -46,9 +46,9 @@ const PinEditPage = () => {
     if (time && time.length > 10) {
       errors.time = "ingredients should be shorter than 10 characters";
     }
-    if (image_url && image_url?.length > 255) {
-      errors.image_url = "ingredients should be shorter than 10 characters";
-    }
+    // if (image_url && image_url?.length > 255) {
+    //   errors.image_url = "ingredients should be shorter than 10 characters";
+    // }
     setErrors(errors);
   }, [
     setErrors,
@@ -56,7 +56,7 @@ const PinEditPage = () => {
     description,
     ingredients,
     time,
-    image_url,
+    // image_url,
     submitted,
     pin,
   ]);
@@ -71,8 +71,8 @@ const PinEditPage = () => {
       errors.title ||
       errors.description ||
       errors.ingredients ||
-      errors.time ||
-      errors.image_url
+      errors.time 
+      // errors.image_url
     ) {
       return;
     }
@@ -81,10 +81,12 @@ const PinEditPage = () => {
       description,
       ingredients,
       time,
-      image_url,
+      // image_url,
       user_id: user.id,
     } 
-
+if(image_url){
+  formData['image_url']=image_url
+}
     if (board.id) {
       dispatch(
         editPin(
@@ -195,7 +197,7 @@ const PinEditPage = () => {
           <label>
             Image_url
             <input
-              required
+             
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
             />
