@@ -139,11 +139,11 @@ def create_pin(board_id):
             time=form.data['time'],
             user_id=current_user.id,
             image_url=form.data['image_url'],
-            is_saved = form.data['is_saved']
+            is_saved=form.data['is_saved']
         )
         db.session.add(pin)
         db.session.commit()
-        #create dependence pin with board 
+        # create dependence pin with board
         board_pin = PinBoard(
             pin_id=pin.id,
             board_id=board_id,

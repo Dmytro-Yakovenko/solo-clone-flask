@@ -1,20 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom/";
-import { createBoard } from "../../store/boardReducer";
+import { createBoard, getAllBoards } from "../../store/boardReducer";
 import { boardConfig } from "../../utils/boardConfig";
 
 import "./BoardCreatePage.css";
 const BoardCreatePage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+
+  const boards = useSelector((state)=>Object.values(state.boards.boards)|| [])
+  const boardsTitles = boards.map(item=>item.title)
   const [kitchen, setKitchen] = useState(1);
   const [title, setTitle] = useState(boardConfig[0].kitchen);
   const [description, setDescription] = useState(boardConfig[0].description);
   const [boardImageUrl, setBoardImageUrl] = useState(
     boardConfig[0].board_image_url
   );
+  const [isCreated, setIsCreated]= useState(false)
   const history = useHistory();
+
+
+useEffect(()=>{
+  dispatch(getAllBoards(user.id))
+},[dispatch,user.id])
+
+useEffect(()=>{
+  setIsCreated(boardsTitles.includes(title))
+}, [title, boardsTitles])
 
   const handleSubmit =async (e) => {
     e.preventDefault();
@@ -57,7 +70,7 @@ const BoardCreatePage = () => {
             alt={title}
           />
           <p>{description}</p>
-          <button type="submit">Create Board</button>
+          <button disabled={isCreated} type="submit" className={isCreated?"board-create-btn-disabled":"board-create-btn-active"}>{isCreated?'Board already exists':'Create Board'}</button>
         </form>
       </div>
     </main>

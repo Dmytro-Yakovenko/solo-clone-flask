@@ -14,7 +14,7 @@ class Pin(db.Model):
     ingredients = db.Column(db.String(1500), nullable=False)
     time =  db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-    image_url = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(255), default ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg")
     is_saved = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
