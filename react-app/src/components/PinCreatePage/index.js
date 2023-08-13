@@ -11,14 +11,17 @@ const PinCreatePage = () => {
   const board = useSelector((state) => state.boards.board);
   const user = useSelector((state) => state.session.user);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
+  const [description, setDescription] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [time, setTime] = useState("");
   // const [image_url, setImage_url] = useState("https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg");
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [descriptionOneStep, setDescriptionOneStep] = useState("");
+  const [ingridientOneStep, setIngridientOneStep] = useState("");
+  const [stepSubmitted, setStepSubmitted] = useState(false);
 
   const history = useHistory();
 
@@ -32,17 +35,17 @@ const PinCreatePage = () => {
       errors.title =
         "title should be shorter than 255 characters and longer than 5 characters";
     }
-    if (description.length > 1500 || description.length < 10) {
-      errors.description =
-        "description should be shorter than 1500 characters and longer than 10 characters ";
-    }
-    if (ingredients.length > 1500 || ingredients.length < 10) {
-      errors.ingredients =
-        "ingredients should be shorter than 1500 characters and longer than 10 characters";
-    }
+    // if (description.length > 1500 || description.length < 10) {
+    //   errors.description =
+    //     "description should be shorter than 1500 characters and longer than 10 characters ";
+    // }
+    // if (ingredients.length > 1500 || ingredients.length < 10) {
+    //   errors.ingredients =
+    //     "ingredients should be shorter than 1500 characters and longer than 10 characters";
+    // }
     if (time.length > 10 || time.length < 2) {
       errors.time =
-        "ingredients should be shorter than 10 characters and longer than 2 characters";
+        "time should be in format  10 min  and length of characters and longer than 2 characters and less than 10";
     }
     // if (image_url.length > 255 || image_url.length < 10) {
     //   errors.image_url =
@@ -54,24 +57,107 @@ const PinCreatePage = () => {
     // }
 
     setErrors(errors);
-  }, [setErrors, title, description, ingredients, time, submitted]);
+  }, [setErrors, title, time, submitted]);
+
+  useEffect(() => {
+    const error = {};
+    if (descriptionOneStep.length < 5 || descriptionOneStep > 50) {
+      error.descriptionOneStep =
+        "description should be shorter than 50 characters and longer than 5 characters";
+    }
+    setErrors(error);
+  }, [descriptionOneStep]);
+
+  useEffect(() => {
+    const error = {};
+    if (ingridientOneStep.length < 5 || ingridientOneStep > 50) {
+      error.ingridientOneStep =
+        " ingredient should be shorter than 50 characters and longer than 5 characters";
+    }
+    setErrors(error);
+  }, [ingridientOneStep]);
+
+  const handleClickIngredient = (e) => {
+    e.preventDefault();
+    setStepSubmitted(true);
+    if (errors.ingridientOneStep) {
+      return;
+    }
+    setIngredients([...ingredients, ingridientOneStep]);
+    setStepSubmitted(false);
+    setIngridientOneStep("");
+  };
+
+
+  const handleDeleteIngredient=(index)=>{
+    const deleted = [...ingredients]
+    deleted.splice(index,1)
+  
+    setIngredients(deleted)
+  }
+
+  const handleDeleteDescription=(index)=>{
+    const deleted = [...description]
+    deleted.splice(index,1)
+    setDescription(deleted)
+  }
+
+
+
+  useEffect(()=>{
+    const errors={}
+    
+    if(description.length<1 ){
+      console.log(1)
+      errors.description="description can not be empty"
+    }
+    console.log(errors,44444444)
+    setErrors(errors)
+  },[description, descriptionOneStep])
+
+
+  useEffect(()=>{
+    const errors={}
+    if(ingredients.length<1 ){
+      errors.ingredients="ingredients can not be empty"
+    }
+    setErrors(errors)
+  },[ingredients, ingridientOneStep])
+
+  const handleClickDescription = (e) => {
+    e.preventDefault();
+    setStepSubmitted(true);
+    if (errors.descriptionOneStep) {
+      return;
+    }
+    setDescription([...description, descriptionOneStep]);
+    setStepSubmitted(false);
+    setDescriptionOneStep("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
+    console.log(errors, 11111111)
     if (
       errors.title ||
       errors.description ||
       errors.ingredients ||
-      errors.time
+      errors.time 
+     
       // errors.image_url
     ) {
       return;
     }
+    if(description.length<1 || ingredients.length<1){
+      alert("add description and ingredients")
+      return 
+    }
+  
     const formData = {
       title,
-      description,
-      ingredients,
+      description: description.join("."),
+      ingredients: ingredients.join("."),
       time,
       user_id: user.id,
     };
@@ -132,11 +218,36 @@ const PinCreatePage = () => {
               required
               placeholder="Add title"
             />
-            {errors.title && submitted && <span>{errors.title}</span>}
+            {errors.title && submitted && <span className="pin-create-span">{errors.title}</span>}
           </label>
-          <label>
+          <label className="label">
             Tell everyone how you will cook
-            <textarea
+            <div className="input-wrapper-step">
+              <input
+                className="steps"
+                value={descriptionOneStep}
+                onChange={(e) => {
+                  setDescriptionOneStep(e.target.value);
+                }}
+                placeholder="Step"
+              />
+              <button className="step-btn" onClick={handleClickDescription}>
+                Add next step
+              </button>
+
+              {errors.descriptionOneStep   && stepSubmitted && (
+                <span className="pin-create-span" >{errors.descriptionOneStep }</span>
+              )}
+            </div>
+            <ul>
+              <li className="step-item" >Prepare your kitchen for the art of cooking</li>
+              {description.map((item, index) => (
+                <li className="step-item" key={index}>{item}
+                <span className="step-span" onClick={()=>handleDeleteDescription(index)}> X </span>
+                </li>
+              ))}
+            </ul>
+            {/* <textarea
               required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -146,11 +257,37 @@ const PinCreatePage = () => {
             />
             {errors.description && submitted && (
               <span>{errors.description}</span>
-            )}
+            )} */}
           </label>
           <label>
-            Ingredients
-            <textarea
+            Tell everyone your ingredients
+            <div className="input-wrapper-step">
+              <input
+                className="steps"
+                value={ingridientOneStep}
+                onChange={(e) => {
+                  setIngridientOneStep(e.target.value);
+                }}
+                placeholder="Ingredient"
+              />
+              <button className="step-btn" onClick={handleClickIngredient}>
+                Add next ingredient
+              </button>
+
+              {errors.ingridientOneStep && stepSubmitted && (
+                <span className="pin-create-span" >{errors.ingridientOneStep}</span>
+              )}
+            </div>
+            <ul>
+              <li className="step-item">Prepare your ingredients</li>
+              {ingredients.map((item, index) => (
+                <li className="step-item" key={index}>
+                  {item}
+                  <span className="step-span" onClick={()=>handleDeleteIngredient(index)}> X </span>
+                </li>
+              ))}
+            </ul>
+            {/* <textarea
               required
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
@@ -160,7 +297,7 @@ const PinCreatePage = () => {
             />
             {errors.ingredients && submitted && (
               <span>{errors.ingredients}</span>
-            )}
+            )} */}
           </label>
           <label>
             Time
@@ -170,7 +307,7 @@ const PinCreatePage = () => {
               onChange={(e) => setTime(e.target.value)}
               placeholder="30 min"
             />
-            {errors.time && submitted && <span>{errors.time}</span>}
+            {errors.time && submitted && <span className="pin-create-span">{errors.time}</span>}
           </label>
           <label>
             Image_url
@@ -179,7 +316,7 @@ const PinCreatePage = () => {
               onChange={(e) => setImage_url(e.target.value)}
               placeholder="we want you to add your link"
             />
-            {errors.image_url && submitted && <span>{errors.image_url}</span>}
+            {errors.image_url && submitted && <span className="pin-create-span">{errors.image_url}</span>}
           </label>
           <button type="submit">Create Pin</button>
         </form>

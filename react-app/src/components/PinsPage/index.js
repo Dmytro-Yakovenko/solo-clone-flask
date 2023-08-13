@@ -19,6 +19,11 @@ const PinsPage = () => {
     return <Redirect to="/"/>
   } 
 
+
+const handleError=(e)=>{
+e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
+}
+
   return (
     <>
       <div className="container pins-page">
@@ -38,6 +43,7 @@ const PinsPage = () => {
                   className="pins-images"
                   src={item.images}
                   alt={item.title}
+                  onError={handleError}
                 />
 
                 <h4>{item.title}</h4>

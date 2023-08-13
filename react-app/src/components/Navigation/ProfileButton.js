@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { NavLink, useHistory, Link } from "react-router-dom/";
-import { TfiArrowCircleDown } from 'react-icons/tfi';
+
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -24,6 +24,10 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const handleError=(e)=>{
+    e.target.src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"
+  }
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -44,8 +48,13 @@ function ProfileButton({ user }) {
             onClick={openMenu}
             className="nav-btn"
             >
-              <img src={user.user_image} alt={user.username} />
+              <img 
+              src={user.user_image} 
+              alt={user.username}
+              onError={handleError}
+              />
               <span>{user.username}</span>
+
             </button>
             <ul className={ulClassName}>
               <li> Hello, </li>
