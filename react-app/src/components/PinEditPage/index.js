@@ -78,8 +78,8 @@ const PinEditPage = () => {
     }
     const formData =   {
       title,
-      description,
-      ingredients,
+      description:pin.description,
+      ingredients:pin.ingredients,
       time,
       // image_url,
       user_id: user.id,
@@ -157,7 +157,7 @@ if(image_url){
             />
             {errors.title && submitted && <span>{errors.title}</span>}
           </label>
-          <label>
+          {/* <label>
             Tell everyone how you will cook
             <textarea
               required
@@ -185,7 +185,8 @@ if(image_url){
               <span>{errors.ingredients}</span>
             )}
           </label>
-          <label>
+          */}
+          <label> 
             Time
             <input
               required

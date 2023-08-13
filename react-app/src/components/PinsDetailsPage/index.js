@@ -22,17 +22,14 @@ const PinsDetailsPage = () => {
   const [isCommentsShow, setCommentsShow] = useState(true);
 
   useEffect(() => {
-    if (pin?.board_id?.board_id){
+    if (pin?.board_id?.board_id) {
       dispatch(getBoardById(pin?.board_id?.board_id));
     }
-  
   }, [dispatch, pin]);
 
   useEffect(() => {
     dispatch(getPinById(id));
   }, [dispatch, id]);
-
-
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -53,6 +50,15 @@ const PinsDetailsPage = () => {
     return <Redirect to="/" />;
   }
 
+  const handleError = (e) => {
+    e.target.src =
+      "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg";
+  };
+
+  const handlePinError=(e)=>{
+    e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
+    }
+    
   return (
     <main className="main">
       <div className="container ">
@@ -61,6 +67,7 @@ const PinsDetailsPage = () => {
             className="image-page-details"
             src={pin.images}
             alt={pin.title}
+            onError={handlePinError}
           />
           <section>
             <h2 className="title-pins-details-page">{pin.title}</h2>
@@ -79,6 +86,7 @@ const PinsDetailsPage = () => {
                 className="user-image-pins-details"
                 src={pin?.user?.user_image}
                 alt={pin?.user?.usarname}
+                onError={handleError}
               />
               <p>
                 {pin?.user?.first_name} {pin?.user?.last_name}
@@ -159,6 +167,7 @@ const PinsDetailsPage = () => {
                       className="user-image-pins-details"
                       src={item.user.user_image}
                       alt="item.user.username"
+                      onError={handleError}
                     />
 
                     <p>
@@ -173,6 +182,7 @@ const PinsDetailsPage = () => {
                   className="user-image-pins-details"
                   src={user?.user_image}
                   alt={user?.username}
+                  onError={handleError}
                 />
               </label>
               <textarea

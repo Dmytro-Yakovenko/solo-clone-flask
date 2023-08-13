@@ -22,7 +22,13 @@ const BoardDetailsPage = () => {
   if (!user) {
     return <Redirect to="/" />;
   }
+  const handleError=(e)=>{
+    e.target.src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"
+  }
 
+  const handlePinError=(e)=>{
+    e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
+    }
   return (
     <main className="main">
       <div className="container">
@@ -31,6 +37,7 @@ const BoardDetailsPage = () => {
             className="board-details-page-image"
             src={user.user_image}
             alt={user.username}
+            onError={handleError}
           />
           <h3>
             {user.first_name} {user.last_name}
@@ -62,7 +69,7 @@ const BoardDetailsPage = () => {
             <img
               className="board-details-page-board"
               src={board.board_image_url}
-              alt={board.title}
+              alt={board?.title}
             />
             {shadow && (
               <div className="wrapper">
@@ -102,6 +109,7 @@ const BoardDetailsPage = () => {
                   className="boards-image"
                   src={item.images}
                   alt={item.title}
+                  onError={handlePinError}
                 />
                 <h4>{item.title}</h4>
               </Link>

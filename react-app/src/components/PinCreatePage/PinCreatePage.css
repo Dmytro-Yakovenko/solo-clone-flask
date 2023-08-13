@@ -54,11 +54,52 @@
     
 }
 
-.pins-create-page-form span {
+.pin-create-span {
     color: rgb(241, 6, 53);
     position: absolute;
     font-size: 12px;
     left: 0;
     bottom: 0;
+
+}
+
+.input-wrapper-step {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 40px;
+    position: relative;
+    
+}
+ 
+.input-wrapper-step span {
+    position: absolute;
+    left: 0;
+    bottom: -30px;
+}
+
+.steps {
+    grid-column: span 2;
+}
+
+.step-btn {
+    grid-column: span 1;
+}
+
+.step-item {
+    position: relative;
+    line-height: 20px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.step-span {
+    position: absolute;
+    right: 0;
+    color: rgb(241, 6, 53);
+    font-size: 10px;
+    top: -5px;
+    margin-top: 5px;
+    cursor: pointer;
 
 }
