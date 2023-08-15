@@ -54,11 +54,45 @@
     
 }
 
-.pins-edit-page-form span {
+.pins-edit-error-span {
     color: rgb(241, 6, 53);
     position: absolute;
     font-size: 12px;
     left: 0;
     bottom: 0;
+
+}
+
+.pin-update-step-item {
+    position: relative;
+    line-height: 20px;
+    font-size: 16px;
+    width: 100%;
+    list-style: disc;
+    text-align: left;
+
+}
+
+.pin-update-step-span {
+    position: absolute;
+    right: 0;
+    color: rgb(241, 6, 53);
+    font-size: 10px;
+    top: -5px;
+    margin-top: 5px;
+    cursor: pointer;
+    right: -25px;
+
+}
+
+.pin-update-step-edit-span {
+    position: absolute;
+    right: 0;
+    color: #000; 
+    font-size: 10px;
+    top: -5px;
+    margin-top: 5px;
+    cursor: pointer;
+    right: -15px;
 
 }

@@ -4,7 +4,7 @@ import { useHistory, useParams, Redirect } from "react-router-dom/";
 import { editPin, getPinById } from "../../store/pinReducer";
 import { boardConfig } from "../../utils/boardConfig";
 import { createBoard } from "../../store/boardReducer";
-
+import { RiEditLine } from 'react-icons/ri';
 import "./PinEditPage.css";
 import { getBoardById } from "../../store/boardReducer";
 const PinEditPage = () => {
@@ -15,22 +15,27 @@ const PinEditPage = () => {
   const board = useSelector((state) => state.boards.board);
   const finded = boardConfig.find((item) => item.kitchen === board.title);
   const [title, setTitle] = useState(pin.title);
-  const [description, setDescription] = useState(pin.description);
+  const [description, setDescription] = useState([]);
   const [ingredients, setIngredients] = useState(pin.ingredients);
   const [time, setTime] = useState(pin.time);
   const [image_url, setImage_url] = useState(pin.images);
   const [kitchen, setKitchen] = useState(finded?.id);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [descriptionOneStep, setDescriptionOneStep] = useState("");
+  const [ingridientOneStep, setIngridientOneStep] = useState("");
+  const [stepSubmitted, setStepSubmitted] = useState(false);
+  const [indexStep, setIndexStep]= useState(null)
+
 
   const history = useHistory();
 
   useEffect(() => {
-    if(pin?.board_id?.board_id){
-      dispatch(getBoardById(pin?.board_id?.board_id));
+    if(id){
+      dispatch(getBoardById(id));
     }
-    
-  }, [dispatch, pin]);
+    setDescription(pin?.description?.split(". "))
+  }, [dispatch, pin, id]);
 
   useEffect(() => {
     const errors = {};
@@ -132,9 +137,50 @@ if(image_url){
     setErrors({});
   };
 
+  const handleEditDescription = (index)=>{
+    const elem = description[index]
+    setDescriptionOneStep(elem)
+    setIndexStep(index)
+  }
+
+  const handleClickDescription = (e) => {
+    e.preventDefault();
+    setStepSubmitted(true);
+    if (errors.descriptionOneStep) {
+      return;
+    }
+    if(indexStep!==null){
+      const updatedDescription =[...description]
+     updatedDescription.splice(indexStep,1,descriptionOneStep)
+     
+      setDescription(updatedDescription)
+     
+      setStepSubmitted(false)
+      setDescriptionOneStep("")
+      setIndexStep(null)
+      return 
+    }
+    setDescription([...description, descriptionOneStep]);
+    setStepSubmitted(false);
+    setDescriptionOneStep("");
+  };
+
+
+  const handleDeleteDescription=(index)=>{
+    const deleted = [...description]
+    deleted.splice(index,1)
+    setDescription(deleted)
+  }
+
+
   if (!user) {
     return <Redirect to="/" />;
   }
+
+
+
+
+
 
   return (
     <main className="main">
@@ -155,37 +201,47 @@ if(image_url){
               required
               placeholder="Add title"
             />
-            {errors.title && submitted && <span>{errors.title}</span>}
-          </label>
-          {/* <label>
-            Tell everyone how you will cook
-            <textarea
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add description"
-            />
-            {errors.description && submitted && (
-              <span>{errors.description}</span>
-            )}
+            {errors.title && submitted && <span className="pins-edit-error-span">{errors.title}</span>}
           </label>
           <label>
-            Ingredients
-            <textarea
-              required
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add ingredients"
-            />
-            {errors.ingredients && submitted && (
-              <span>{errors.ingredients}</span>
-            )}
+          <div className="input-wrapper-step">
+              <input
+                className="steps"
+                value={descriptionOneStep}
+                onChange={(e) => {
+                  setDescriptionOneStep(e.target.value);
+                }}
+                placeholder="Step"
+              />
+              <button className="step-btn" onClick={handleClickDescription}>
+               {(indexStep!==null)?"Update your step":"Add next step"} 
+              </button>
+
+              {errors.descriptionOneStep   && stepSubmitted && (
+                <span className="pin-create-span" >{errors.descriptionOneStep }</span>
+              )}
+            </div>
+            <ul>
+              {description?.map((item, index)=>
+              <li 
+              className="pin-update-step-item"
+              key={item}>{item} 
+              <span
+              onClick={()=> handleEditDescription(index)}
+              className="pin-update-step-edit-span"
+              >
+              <RiEditLine/>
+              </span>
+              <span
+              onClick={()=>handleDeleteDescription(index)}
+               className="pin-update-step-span"
+              > X </span>
+              </li>)}
+            </ul>
           </label>
-          */}
+       <label>
+        
+       </label>
           <label> 
             Time
             <input
@@ -193,7 +249,7 @@ if(image_url){
               value={time}
               onChange={(e) => setTime(e.target.value)}
             />
-            {errors.time && submitted && <span>{errors.time}</span>}
+            {errors.time && submitted && <span className="pins-edit-error-span">{errors.time}</span>}
           </label>
           <label>
             Image_url
@@ -202,7 +258,7 @@ if(image_url){
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
             />
-            {errors.image_url && submitted && <span>{errors.image_url}</span>}
+            {errors.image_url && submitted && <span className="pins-edit-error-span">{errors.image_url}</span>}
           </label>
           <button type="submit">Edit Pin</button>
         </form>

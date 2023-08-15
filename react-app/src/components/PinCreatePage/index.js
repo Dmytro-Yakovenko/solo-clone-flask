@@ -14,7 +14,6 @@ const PinCreatePage = () => {
   const [description, setDescription] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [time, setTime] = useState("");
-  // const [image_url, setImage_url] = useState("https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg");
   const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(1);
   const [errors, setErrors] = useState({});
@@ -35,27 +34,11 @@ const PinCreatePage = () => {
       errors.title =
         "title should be shorter than 255 characters and longer than 5 characters";
     }
-    // if (description.length > 1500 || description.length < 10) {
-    //   errors.description =
-    //     "description should be shorter than 1500 characters and longer than 10 characters ";
-    // }
-    // if (ingredients.length > 1500 || ingredients.length < 10) {
-    //   errors.ingredients =
-    //     "ingredients should be shorter than 1500 characters and longer than 10 characters";
-    // }
     if (time.length > 10 || time.length < 2) {
       errors.time =
         "time should be in format  10 min  and length of characters and longer than 2 characters and less than 10";
     }
-    // if (image_url.length > 255 || image_url.length < 10) {
-    //   errors.image_url =
-    //     "image url should be longer than 10 characters and shorter than 255";
-    // }
-
-    // if (!image_url.match(/(\.jpe?g$)|(\.png$)/g)) {
-    //   errors.image_url = "Image URL must end in .png, .jpg, or .jpeg";
-    // }
-
+ 
     setErrors(errors);
   }, [setErrors, title, time, submitted]);
 
@@ -76,6 +59,27 @@ const PinCreatePage = () => {
     }
     setErrors(error);
   }, [ingridientOneStep]);
+
+  useEffect(()=>{
+    const errors={}
+    
+    if(description.length<1 ){
+      
+      errors.description="description can not be empty"
+    }
+
+    setErrors(errors)
+  },[description, descriptionOneStep])
+
+
+  useEffect(()=>{
+    const errors={}
+    if(ingredients.length<1 ){
+      errors.ingredients="ingredients can not be empty"
+    }
+    setErrors(errors)
+  },[ingredients, ingridientOneStep])
+
 
   const handleClickIngredient = (e) => {
     e.preventDefault();
@@ -104,26 +108,7 @@ const PinCreatePage = () => {
 
 
 
-  useEffect(()=>{
-    const errors={}
-    
-    if(description.length<1 ){
-      console.log(1)
-      errors.description="description can not be empty"
-    }
-    console.log(errors,44444444)
-    setErrors(errors)
-  },[description, descriptionOneStep])
-
-
-  useEffect(()=>{
-    const errors={}
-    if(ingredients.length<1 ){
-      errors.ingredients="ingredients can not be empty"
-    }
-    setErrors(errors)
-  },[ingredients, ingridientOneStep])
-
+ 
   const handleClickDescription = (e) => {
     e.preventDefault();
     setStepSubmitted(true);
@@ -138,14 +123,11 @@ const PinCreatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    console.log(errors, 11111111)
     if (
       errors.title ||
       errors.description ||
       errors.ingredients ||
       errors.time 
-     
-      // errors.image_url
     ) {
       return;
     }
@@ -247,17 +229,6 @@ const PinCreatePage = () => {
                 </li>
               ))}
             </ul>
-            {/* <textarea
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add description in this format: step1. step2. step3.  ... "
-            />
-            {errors.description && submitted && (
-              <span>{errors.description}</span>
-            )} */}
           </label>
           <label>
             Tell everyone your ingredients
@@ -287,17 +258,6 @@ const PinCreatePage = () => {
                 </li>
               ))}
             </ul>
-            {/* <textarea
-              required
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add ingredients in this format: ingredient1. ingredient2. ingredient3. ... "
-            />
-            {errors.ingredients && submitted && (
-              <span>{errors.ingredients}</span>
-            )} */}
           </label>
           <label>
             Time
