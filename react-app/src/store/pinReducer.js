@@ -83,6 +83,7 @@ export const createPin = (pin, boardId) => async (dispatch) => {
 };
 
 export const editPin = (pin, id) => async (dispatch) => {
+  console.log(pin, 666666666)
   const response = await fetch(`/api/pins/${id}`, {
     method: "PUT",
     headers: {

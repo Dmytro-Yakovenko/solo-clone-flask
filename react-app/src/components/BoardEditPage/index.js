@@ -15,13 +15,13 @@ const BoardEditPage = () => {
   const boards= useSelector(state=>Object.values(state.boards.boards))
   const boardsTitles =boards.map(item=>item.title)
   const boardTitlesWithoutCurrent = boardsTitles.filter(item=>item!==board.title)
-  console.log(boardTitlesWithoutCurrent, 333333333)
+
   const filteredBoards=boardConfig.filter(item=>!boardTitlesWithoutCurrent.includes(item.kitchen))
-  console.log(filteredBoards,66666666)
+
   const [kitchen, setKitchen] = useState(1);
-  console.log(kitchen,8888888)
+ 
   const [title, setTitle] = useState("");
-  console.log(title, 9999999)
+  
   const [description, setDescription] = useState("");
   const [boardImageUrl, setBoardImageUrl] = useState("");
   const history = useHistory();
@@ -46,7 +46,6 @@ const BoardEditPage = () => {
 
   const handleChange = (e)=> {
     const finded = filteredBoards.find(item=>item.id=== +e.target.value)
-    console.log(finded, 88888)
     setKitchen(+e.target.value);
     setTitle(finded.kitchen)
     setBoardImageUrl(finded.board_image_url);

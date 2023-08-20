@@ -4,7 +4,7 @@ import { useHistory, useParams, Redirect } from "react-router-dom/";
 import { editPin, getPinById } from "../../store/pinReducer";
 import { boardConfig } from "../../utils/boardConfig";
 import { createBoard } from "../../store/boardReducer";
-
+import { RiEditLine } from "react-icons/ri";
 import "./PinEditPage.css";
 import { getBoardById } from "../../store/boardReducer";
 const PinEditPage = () => {
@@ -14,23 +14,39 @@ const PinEditPage = () => {
   const user = useSelector((state) => state.session.user);
   const board = useSelector((state) => state.boards.board);
   const finded = boardConfig.find((item) => item.kitchen === board.title);
-  const [title, setTitle] = useState(pin.title);
-  const [description, setDescription] = useState(pin.description);
-  const [ingredients, setIngredients] = useState(pin.ingredients);
-  const [time, setTime] = useState(pin.time);
-  const [image_url, setImage_url] = useState(pin.images);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [time, setTime] = useState("");
+  const [image_url, setImage_url] = useState("");
   const [kitchen, setKitchen] = useState(finded?.id);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [descriptionOneStep, setDescriptionOneStep] = useState("");
+  const [ingridientOneStep, setIngridientOneStep] = useState("");
+  const [stepSubmitted, setStepSubmitted] = useState(false);
+  const [indexStep, setIndexStep] = useState(null);
 
   const history = useHistory();
 
   useEffect(() => {
-    if(pin?.board_id?.board_id){
-      dispatch(getBoardById(pin?.board_id?.board_id));
+    if (id) {
+      dispatch(getBoardById(id));
     }
-    
-  }, [dispatch, pin]);
+    console.log(pin.description,7777777777)
+    setDescription(pin?.description?.split(". "));
+    setIngredients(pin?.ingredients?.split(". "))
+    if(pin.time){
+      setTime(pin.time)
+    }
+    if(pin.images){
+      setImage_url(pin.images)
+    }
+    if(pin.title){
+      setTitle(pin.title)
+    }
+   
+  }, [dispatch, pin, id]);
 
   useEffect(() => {
     const errors = {};
@@ -44,11 +60,9 @@ const PinEditPage = () => {
       errors.description = "ingredients should be shorter than 1500 characters";
     }
     if (time && time.length > 10) {
-      errors.time = "ingredients should be shorter than 10 characters";
+      errors.time = "Time should be shorter than 10 characters";
     }
-    // if (image_url && image_url?.length > 255) {
-    //   errors.image_url = "ingredients should be shorter than 10 characters";
-    // }
+  
     setErrors(errors);
   }, [
     setErrors,
@@ -56,7 +70,7 @@ const PinEditPage = () => {
     description,
     ingredients,
     time,
-    // image_url,
+    
     submitted,
     pin,
   ]);
@@ -71,47 +85,44 @@ const PinEditPage = () => {
       errors.title ||
       errors.description ||
       errors.ingredients ||
-      errors.time 
-      // errors.image_url
+      errors.time
+      
     ) {
       return;
     }
-    const formData =   {
+    const formData = {
       title,
-      description:pin.description,
-      ingredients:pin.ingredients,
+      description: description.join(". "),
+      ingredients: ingredients.join(". "),
       time,
-      // image_url,
+      is_saved: pin.is_saved,
+
       user_id: user.id,
-    } 
-if(image_url){
-  formData['image_url']=image_url
-}
+    };
+    if (image_url) {
+      formData["image_url"] = image_url;
+    }
+    console.log(formData, 4444444)
     if (board.id) {
-      dispatch(
-        editPin(
-          formData,
-          pin.id
-        )
-      );
+      dispatch(editPin(formData, pin.id));
       setSubmitted(false);
       history.push(`/pins/${id}`);
       setTitle("");
-      setDescription("");
-      setIngredients("");
+      setDescription([]);
+      setIngredients([]);
       setTime("");
       setImage_url("");
       setKitchen(1);
       setErrors({});
-      return
+      return;
     }
 
     if (!board.id) {
       const boardId = await dispatch(
         createBoard({
-          title:boardConfig[kitchen-1].kitchen,
-          description:boardConfig[kitchen-1].description,
-          board_image_url: boardConfig[kitchen-1].board_image_url,
+          title: boardConfig[kitchen - 1].kitchen,
+          description: boardConfig[kitchen - 1].description,
+          board_image_url: boardConfig[kitchen - 1].board_image_url,
           user_id: user.id,
         })
       );
@@ -124,12 +135,85 @@ if(image_url){
     setSubmitted(false);
     history.push(`/pins/${id}`);
     setTitle("");
-    setDescription("");
-    setIngredients("");
+    setDescription([]);
+    setIngredients([]);
     setTime("");
     setImage_url("");
     setKitchen(1);
     setErrors({});
+  };
+
+  const handleEditIngredient = (index) => {
+    const elem = ingredients[index];
+    setIngridientOneStep(elem);
+    setIndexStep(index);
+  };
+
+  const handleClickIngredient = (e) => {
+    e.preventDefault();
+    setIngridientOneStep(true);
+    if (errors.ingridientOneStep) {
+      return;
+    }
+    if (indexStep !== null) {
+      const updateIngredient = [...ingredients];
+      updateIngredient.splice(indexStep, 1, ingridientOneStep);
+
+      setIngredients(updateIngredient);
+      setStepSubmitted(false);
+      setIngridientOneStep("");
+      setIndexStep(null);
+      return;
+    }
+
+    setIngredients([...ingredients, ingridientOneStep]);
+    setStepSubmitted(false);
+    setIngridientOneStep("");
+  };
+
+  const handleDeleteIngredient = (index) => {
+    const deleted = [...ingredients];
+    deleted.splice(index, 1);
+    setIngredients(deleted);
+  };
+
+  const handleEditDescription = (index) => {
+    const elem = description[index];
+    setDescriptionOneStep(elem);
+    setIndexStep(index);
+  };
+
+  const handleClickDescription = (e) => {
+    e.preventDefault();
+    setStepSubmitted(true);
+    if (errors.descriptionOneStep) {
+      return;
+    }
+    console.log(description, indexStep, descriptionOneStep, 8888888888)
+    if (indexStep !== null) {
+      const updatedDescription = [...description];
+      updatedDescription.splice(indexStep, 1, descriptionOneStep);
+
+      setDescription(updatedDescription);
+
+      setStepSubmitted(false);
+      setDescriptionOneStep("");
+      setIndexStep(null);
+      return;
+    }
+    const updated = [...description]
+    updated.push(descriptionOneStep)
+    console.log(updated, 1111111111)
+    setDescription(prev=>[...prev, descriptionOneStep]);
+    console.log(description, 999999)
+    setStepSubmitted(false);
+    setDescriptionOneStep("");
+  };
+
+  const handleDeleteDescription = (index) => {
+    const deleted = [...description];
+    deleted.splice(index, 1);
+    setDescription(deleted);
   };
 
   if (!user) {
@@ -155,54 +239,111 @@ if(image_url){
               required
               placeholder="Add title"
             />
-            {errors.title && submitted && <span>{errors.title}</span>}
-          </label>
-          {/* <label>
-            Tell everyone how you will cook
-            <textarea
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add description"
-            />
-            {errors.description && submitted && (
-              <span>{errors.description}</span>
+            {errors.title && submitted && (
+              <span className="pins-edit-error-span">{errors.title}</span>
             )}
           </label>
           <label>
-            Ingredients
-            <textarea
-              required
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              rows="5"
-              cols="44"
-              placeholder="Add ingredients"
-            />
-            {errors.ingredients && submitted && (
-              <span>{errors.ingredients}</span>
-            )}
+            <div className="input-wrapper-step">
+              <input
+                className="steps"
+                value={descriptionOneStep}
+                onChange={(e) => {
+                  setDescriptionOneStep(e.target.value);
+                }}
+                placeholder="Step"
+              />
+              <button className="step-btn" onClick={handleClickDescription}>
+                {indexStep !== null ? "Update your step" : "Add next step"}
+              </button>
+
+              {errors.descriptionOneStep && stepSubmitted && (
+                <span className="pin-create-span">
+                  {errors.descriptionOneStep}
+                </span>
+              )}
+            </div>
+            <ul>
+              {description?.map((item, index) => (
+                <li className="pin-update-step-item" key={item}>
+                  {item}
+                  <span
+                    onClick={() => handleEditDescription(index)}
+                    className="pin-update-step-edit-span"
+                  >
+                    <RiEditLine />
+                  </span>
+                  <span
+                    onClick={() => handleDeleteDescription(index)}
+                    className="pin-update-step-span"
+                  >
+                    {" "}
+                    X{" "}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </label>
-          */}
-          <label> 
+          <label>
+            <div className="input-wrapper-step">
+              <input
+                className="steps"
+                value={ingridientOneStep}
+                onChange={(e) => {
+                  setIngridientOneStep(e.target.value);
+                }}
+                placeholder="ingredient"
+              />
+              <button className="steps-btn" onClick={handleClickIngredient}>
+                {indexStep !== null ? "Update ingredient" : "Add ingredient"}
+              </button>
+              {errors.ingridientOneStep && stepSubmitted && (
+                <span className="pin-create-span">
+                  {errors.ingridientOneStep}
+                </span>
+              )}
+            </div>
+
+            <ul>
+              {ingredients?.map((item, index) => (
+                <li className="pin-update-step-item" key={item}>
+                  {item}
+                  <span
+                    onClick={() => handleEditIngredient(index)}
+                    className="pin-update-step-edit-span"
+                  >
+                    <RiEditLine />
+                  </span>
+                  <span
+                    onClick={() => handleDeleteIngredient(index)}
+                    className="pin-update-step-span"
+                  >
+                    X
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </label>
+          <label>
             Time
             <input
               required
               value={time}
               onChange={(e) => setTime(e.target.value)}
             />
-            {errors.time && submitted && <span>{errors.time}</span>}
+            {errors.time && submitted && (
+              <span className="pins-edit-error-span">{errors.time}</span>
+            )}
           </label>
           <label>
             Image_url
             <input
-             
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
             />
-            {errors.image_url && submitted && <span>{errors.image_url}</span>}
+            {errors.image_url && submitted && (
+              <span className="pins-edit-error-span">{errors.image_url}</span>
+            )}
           </label>
           <button type="submit">Edit Pin</button>
         </form>
