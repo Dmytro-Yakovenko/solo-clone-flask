@@ -55,6 +55,7 @@ def update_pin(id):
     if pin.user_id != current_user.id:
         return {'errors': f"User is not the creator of pin {id}."}, 401
     form = PinForm()
+    print (form['description'],5555555)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         form.populate_obj(pin)

@@ -138,8 +138,8 @@ const PinCreatePage = () => {
   
     const formData = {
       title,
-      description: description.join("."),
-      ingredients: ingredients.join("."),
+      description: description.join(". "),
+      ingredients: ingredients.join(". "),
       time,
       user_id: user.id,
     };
