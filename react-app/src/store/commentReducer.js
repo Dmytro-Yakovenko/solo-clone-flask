@@ -88,6 +88,7 @@ export  const editComment=(comment)=> async (dispatch)=>{
     if(response.ok){
         const data = await response.json()
         dispatch(updateComment(data))
+        dispatch(getPinById(comment.pin_id))
     }
 
 }
@@ -102,7 +103,8 @@ export const deleteComment = (comment_id, pin_id)=> async(dispatch)=>{
     })
 
     if(response.ok){
-        dispatch(removeComment())
+        dispatch(removeComment(comment_id))
+        dispatch(getPinById(pin_id))
         return null
     }else if(response.status<500){
         const data = await response.json();

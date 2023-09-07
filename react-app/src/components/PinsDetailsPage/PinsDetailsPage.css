@@ -49,6 +49,7 @@
     display: flex;
     gap:10px;
     align-items: center;
+    position: relative;
 }
 
 .pins-details-page {
@@ -155,4 +156,33 @@
     cursor: pointer;
     color: #fff;
 
+}
+
+.edit-comment {
+    cursor: pointer;
+    font-size: 10px;
+    position: absolute;
+    top:0;
+    right: 15px;
+}
+
+.delete-comment {
+    cursor: pointer;
+    color:  rgb(163, 62, 77);
+    font-size: 10px;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+
+.form-edit {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.form-wrapper-button{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

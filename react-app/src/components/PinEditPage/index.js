@@ -33,7 +33,7 @@ const PinEditPage = () => {
     if (id) {
       dispatch(getBoardById(id));
     }
-    console.log(pin.description,7777777777)
+   
     setDescription(pin?.description?.split(". "));
     setIngredients(pin?.ingredients?.split(". "))
     if(pin.time){
@@ -102,7 +102,6 @@ const PinEditPage = () => {
     if (image_url) {
       formData["image_url"] = image_url;
     }
-    console.log(formData, 4444444)
     if (board.id) {
       dispatch(editPin(formData, pin.id));
       setSubmitted(false);
@@ -189,7 +188,6 @@ const PinEditPage = () => {
     if (errors.descriptionOneStep) {
       return;
     }
-    console.log(description, indexStep, descriptionOneStep, 8888888888)
     if (indexStep !== null) {
       const updatedDescription = [...description];
       updatedDescription.splice(indexStep, 1, descriptionOneStep);
@@ -203,9 +201,9 @@ const PinEditPage = () => {
     }
     const updated = [...description]
     updated.push(descriptionOneStep)
-    console.log(updated, 1111111111)
+ 
     setDescription(prev=>[...prev, descriptionOneStep]);
-    console.log(description, 999999)
+    
     setStepSubmitted(false);
     setDescriptionOneStep("");
   };
