@@ -3,12 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { getPinById } from "../../store/pinReducer";
 import { BsEmojiSunglasses } from "react-icons/bs";
-import { createComment } from "../../store/commentReducer";
+import {
+  createComment,
+  deleteComment,
+  editComment,
+} from "../../store/commentReducer";
 import DeletePinModal from "../DeletePinModal";
 import OpenModalButton from "../OpenModalButton";
 import "./PinsDetailsPage.css";
 import CreateBoardPinModal from "../CreateBoardPinModal";
 import { getBoardById } from "../../store/boardReducer";
+import { ImCross } from "react-icons/im";
+import { FiEdit } from "react-icons/fi";
 
 const PinsDetailsPage = () => {
   const dispatch = useDispatch();
@@ -20,6 +26,9 @@ const PinsDetailsPage = () => {
   const [comment, setComment] = useState("");
   const [isIngredientsShow, setIngredientsShow] = useState(true);
   const [isCommentsShow, setCommentsShow] = useState(true);
+  const [isEditComment, setEditComment] = useState(false);
+  const [commentId, setCommentId] = useState(null);
+  const [commentEdit, setCommentEdit] = useState("");
 
   useEffect(() => {
     if (pin?.board_id?.board_id) {
@@ -46,6 +55,30 @@ const PinsDetailsPage = () => {
     setComment("");
   };
 
+  const handleEditComment = (id,comment) => {
+    setEditComment(true);
+    setCommentId(id);
+    setCommentEdit(comment)
+  };
+
+  const handleSubmitEditComment = (e) => {
+    e.preventDefault();
+    dispatch(
+      editComment({
+        pin_id: id,
+        id: commentId,
+        comment: commentEdit,
+      })
+    );
+    setCommentEdit();
+    setEditComment(false);
+    setCommentId(null);
+  };
+
+  const handleDeleteComment = (commentId) => {
+    dispatch(deleteComment(commentId, id));
+  };
+
   if (!user) {
     return <Redirect to="/" />;
   }
@@ -55,10 +88,11 @@ const PinsDetailsPage = () => {
       "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg";
   };
 
-  const handlePinError=(e)=>{
-    e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
-    }
-    
+  const handlePinError = (e) => {
+    e.target.src =
+      "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg";
+  };
+
   return (
     <main className="main">
       <div className="container ">
@@ -169,10 +203,60 @@ const PinsDetailsPage = () => {
                       alt="item.user.username"
                       onError={handleError}
                     />
+                    {isEditComment && commentId === item.id ? (
+                      <form
+                        className="form-edit"
+                        onSubmit={handleSubmitEditComment}
+                      >
+                        <textarea
+                          rows="5"
+                          cols="50"
+                          required
+                          value={commentEdit}
+                          onChange={(e) => setCommentEdit(e.target.value)}
+                        ></textarea>
+                        <div
+                        className="form-wrapper-button"
+                        >
+                          <button
+                            type="submit"
+                            className=" pins-details-update"
+                          >
+                            Edit Comment
+                          </button>
 
-                    <p>
-                      <span>{item.user.username}</span>: {item.comment}{" "}
-                    </p>
+                          <button
+                            className=" pins-details-delete"
+                            onClick={() => {
+                              setEditComment(false);
+                              setCommentEdit(item.comment);
+                              setCommentId(null);
+                            }}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      <>
+                        <p>
+                          <span>{item.user.username}</span>: {item.comment}{" "}
+                        </p>
+                        {user.id===item.user_id && 
+                          <>
+                            <FiEdit
+                              className="edit-comment"
+                              onClick={() => handleEditComment(item.id, item.comment)}
+                            />
+
+                            <ImCross
+                              className="delete-comment"
+                              onClick={(e) => handleDeleteComment(item.id)}
+                            />
+                          </>
+                        }
+                      </>
+                    )}
                   </li>
                 ))}
             </ul>
