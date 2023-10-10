@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { NavLink, useHistory, Link } from "react-router-dom/";
+<<<<<<< Updated upstream
 
+=======
+import { TfiArrowCircleDown } from 'react-icons/tfi';
+>>>>>>> Stashed changes
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -40,6 +44,7 @@ function ProfileButton({ user }) {
       <ul className="navigation-menu" ref={ulRef}>
         {user ? (
           <>
+<<<<<<< Updated upstream
             <Link to ="/boards" className="nav-profile-btn" >
             All my boards
              
@@ -55,6 +60,19 @@ function ProfileButton({ user }) {
               />
               <span>{user.username}</span>
 
+=======
+            <Link to ="/boards" className="nav-btn" >
+              <img src={user.user_image} alt={user.username} />
+              <span>{user.username}</span>
+            </Link>
+            <button
+            onClick={openMenu}
+            className="nav-profile-btn"
+            >
+              <TfiArrowCircleDown
+              className="nav-icon"
+              />
+>>>>>>> Stashed changes
             </button>
             <ul className={ulClassName}>
               <li> Hello, </li>
