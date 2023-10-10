@@ -16,7 +16,7 @@ import BoardCreatePage from "./components/BoardCreatePage";
 import BoardEditPage from "./components/BoardEditPage";
 import BoardDetailsPage from "./components/BoardsDetailsPage";
 import UserEditPage from "./components/UserEditPage";
-
+import Footer from "./components/Footer"
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -102,6 +102,7 @@ function App() {
           </Switch>
         </>
       )}
+      <Footer/>
     </>
   );
 }

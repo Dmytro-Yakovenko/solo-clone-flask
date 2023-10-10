@@ -169,18 +169,14 @@ a {
 }
 
 .nav-profile-btn {
-<<<<<<< Updated upstream
  color: #000;
- border-radius: 10px;
  font-size: 12px;
   border: none;
   padding: 5px;
-=======
   border-radius: 50%;
   border: none;
   width: 35px;
   height: 35px;
->>>>>>> Stashed changes
   background-color: rgb(238, 236, 115); 
   display: flex;
   justify-content: center;

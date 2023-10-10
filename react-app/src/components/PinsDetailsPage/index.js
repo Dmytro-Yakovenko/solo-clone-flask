@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, Redirect } from "react-router-dom";
-import { getPinById } from "../../store/pinReducer";
+import { createPin, getPinById } from "../../store/pinReducer";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import {
   createComment,
@@ -16,6 +16,7 @@ import CreateBoardPinModal from "../CreateBoardPinModal";
 import { getBoardById } from "../../store/boardReducer";
 import { ImCross } from "react-icons/im";
 import { FiEdit } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 
 const PinsDetailsPage = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,8 @@ const PinsDetailsPage = () => {
 
   const pin = useSelector((state) => state.pins.pin);
   const user = useSelector((state) => state.session.user);
-<<<<<<< Updated upstream
   const board = useSelector((state) => state.boards.board);
-=======
   const history = useHistory()
->>>>>>> Stashed changes
   const [comment, setComment] = useState("");
   const [isIngredientsShow, setIngredientsShow] = useState(true);
   const [isCommentsShow, setCommentsShow] = useState(true);
@@ -60,7 +58,6 @@ const PinsDetailsPage = () => {
     setComment("");
   };
 
-<<<<<<< Updated upstream
   const handleEditComment = (id,comment) => {
     setEditComment(true);
     setCommentId(id);
@@ -99,7 +96,6 @@ const PinsDetailsPage = () => {
       "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg";
   };
 
-=======
 
   const handleClick = (e)=> {
     e.preventDefault();
@@ -119,7 +115,6 @@ const PinsDetailsPage = () => {
 
   }
 
->>>>>>> Stashed changes
   return (
     <main className="main">
       <div className="container ">
@@ -172,7 +167,8 @@ const PinsDetailsPage = () => {
               )}
 
               {pin?.user_id !== user.id && (
-<<<<<<< Updated upstream
+                <>
+                
                 <OpenModalButton
                   modalComponent={
                     <CreateBoardPinModal
@@ -191,7 +187,6 @@ const PinsDetailsPage = () => {
                   buttonText="Save"
                   className="pins-details-update"
                 />
-=======
                 <button
                   className="pins-details-update"
            
@@ -199,7 +194,7 @@ const PinsDetailsPage = () => {
                 >
                   Save
                 </button>
->>>>>>> Stashed changes
+                </>
               )}
             </div>
             <div className="pins-details-ingredients-wrapper">

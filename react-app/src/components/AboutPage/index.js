@@ -180,11 +180,7 @@ const AboutPage = () => {
   if(user){
     return <Redirect to="/pins"/>
   } 
-<<<<<<< Updated upstream
   
-=======
-  console.log(user, 44444444)
->>>>>>> Stashed changes
   return (
     <>
       <div className="container about-page">
